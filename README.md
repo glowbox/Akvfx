@@ -22,3 +22,18 @@ doesn't support Linux at the moment.
 
 [System Requirements]:
     https://docs.microsoft.com/en-us/azure/kinect-dk/system-requirements
+
+	
+[Fork specific notes]
+
+This fork is an experiment in live streaming the VFX to an RMTP end point.
+- Output to a virtual webcam using Unity Capture (https://github.com/schellingb/UnityCapture)
+- Output rgb channel and depth channel (as HSV) for reconstruction in threejs on the "other end"
+
+FFMPEG:
+- View Output
+ ./ffplay -f dshow -video_size 1280x720 -vf "format=yuv420p" -i video="Unity Video Capture"
+ 
+- Stream output to rtmp
+ ./ffmpeg -f dshow -video_size 1280x720 -i video="Unity Video Capture" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf "format=yuv420p" -g 60 -f flv rtmp://localhost:1935/live/test
+ 
