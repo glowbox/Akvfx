@@ -17,3 +17,7 @@ Desktop.ini
 /Library
 /Logs
 /Temp
+
+.vs/
+
+obj/

@@ -16,8 +16,17 @@
     }
   ],
   "dependencies": {
+    "com.unity.ide.visualstudio": "2.0.2",
+    "com.unity.inputsystem": "1.0.0",
     "jp.keijiro.kino.post-processing": "2.1.12",
     "jp.keijiro.klak.motion": "1.0.1",
-    "jp.keijiro.metamesh": "0.0.4"
+    "jp.keijiro.metamesh": "0.0.4",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.video": "1.0.0"
   }
 }
