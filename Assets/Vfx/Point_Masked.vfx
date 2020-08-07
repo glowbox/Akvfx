@@ -1514,7 +1514,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614689}
   m_ExposedName: PositionMap
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 3
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -1779,7 +1779,8 @@ MonoBehaviour:
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614778}
 --- !u!114 &8926484042661614777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,7 +1815,14 @@ MonoBehaviour:
     m_SerializableObject: 
   m_IsOutput: 0
   m_Tooltip: 
-  m_Nodes: []
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614778}
+      inputSlot: {fileID: 8926484042661614773}
+    position: {x: 511.43097, y: 943.7024}
+    expandedSlots: []
+    expanded: 0
 --- !u!114 &8926484042661614778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,7 +1856,8 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
     attributes: []
   m_Direction: 1
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614773}
 --- !u!114 &8926484042661614786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,7 +1933,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614905}
   m_ExposedName: MapWidth
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 5
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -2012,7 +2021,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614907}
   m_ExposedName: MapHeight
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 6
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -25038,7 +25047,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616969}
   m_ExposedName: Feather
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 4
   m_Category: 
   m_Min:
     m_Type:
@@ -26086,7 +26095,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617017}
   m_ExposedName: BoxMask
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:

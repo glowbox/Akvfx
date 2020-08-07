@@ -9,6 +9,7 @@ public class CameraDepth : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        cam = GetComponent<Camera>();
         cam.depthTextureMode = DepthTextureMode.Depth;
     }
 }
