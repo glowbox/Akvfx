@@ -83,7 +83,7 @@ Shader "Unlit/Depth"
             float CorrectDepth(float rawDepth)
             {
                 float persp = LinearEyeDepth(rawDepth);
-                float ortho = (_ProjectionParams.z - _ProjectionParams.y) * (1 - rawDepth) + _ProjectionParams.y;
+                float ortho = (_ProjectionParams.z - _ProjectionParams.y) * (1-rawDepth) + _ProjectionParams.y;
                 return lerp(persp, ortho, unity_OrthoParams.w);
             }
 
@@ -91,14 +91,14 @@ Shader "Unlit/Depth"
             fixed4 frag(v2f i) : SV_TARGET{
                 //get depth from depth texture
                 float depth = tex2D(_DepthTex, i.uv).r;
-
+                
                 //linear depth between camera and far clipping plane
                 //depth = Linear01Depth(depth);
 
                 //https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
                 depth = CorrectDepth(depth) / _ProjectionParams.z;
 
-                float3 rgb = hsv2rgb( float3(depth,1.0,1.0) );
+                float3 rgb = depth == 1 ? float3(0, 0, 0) : hsv2rgb( float3(depth,1.0,1.0) );
 
                 return float4(rgb,1.0);
             }
