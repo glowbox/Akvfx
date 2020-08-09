@@ -1,18 +1,4 @@
-﻿/*
-
-below works but the depth texture does not match the color texture, something is up with the projection
-
-_cameradepthtexture sizes with the windows, which can make it seem to align incorrectly
-
-https://forum.unity.com/threads/decodedepthnormal-linear01depth-lineareyedepth-explanations.608452/
-
-
-https://www.reddit.com/r/GraphicsProgramming/comments/9ukp2z/unity3d_engine_im_trying_to_calculate_the/
-https://github.com/zezba9000/UnityMathReference/blob/master/Assets/Demos/Shaders/DepthBuffToWorldPos/DepthBuffToWorldPos.shader
-
-https://forum.unity.com/threads/world-position-from-depth.151466/#post-3065516
-https://www.reddit.com/r/Unity3D/comments/9g2hup/comparing_cameradepthtexture_to_depth_in_shader/
-*/
+﻿
 
 Shader "Unlit/Depth"
 {
@@ -62,6 +48,7 @@ Shader "Unlit/Depth"
                 return o;
             }
 
+            //https://stackoverflow.com/a/17897228
             float3 rgb2hsv(float3 c) {
               float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
               float4 p = lerp(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
@@ -72,6 +59,7 @@ Shader "Unlit/Depth"
               return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
             }
 
+            //https://stackoverflow.com/a/17897228
             float3 hsv2rgb(float3 c) {
               c = float3(c.x, clamp(c.yz, 0.0, 1.0));
               float4 K = float4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
@@ -82,23 +70,19 @@ Shader "Unlit/Depth"
             //https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
             float CorrectDepth(float rawDepth)
             {
-                float persp = LinearEyeDepth(rawDepth);
+                //float persp = Linear01Depth(rawDepth);
                 float ortho = (_ProjectionParams.z - _ProjectionParams.y) * (1-rawDepth) + _ProjectionParams.y;
-                return lerp(persp, ortho, unity_OrthoParams.w);
+                return ortho;// lerp(persp, ortho, unity_OrthoParams.w);
             }
-
 
             fixed4 frag(v2f i) : SV_TARGET{
                 //get depth from depth texture
                 float depth = tex2D(_DepthTex, i.uv).r;
-                
-                //linear depth between camera and far clipping plane
-                //depth = Linear01Depth(depth);
-
+            
                 //https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
                 depth = CorrectDepth(depth) / _ProjectionParams.z;
 
-                float3 rgb = depth == 1 ? float3(0, 0, 0) : hsv2rgb( float3(depth,1.0,1.0) );
+                float3 rgb = depth == 1 ? float3(0, 0, 0) : hsv2rgb ( float3(depth,1.0,1.0) );
 
                 return float4(rgb,1.0);
             }

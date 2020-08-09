@@ -31,9 +31,14 @@ This fork is an experiment in live streaming the VFX to an RMTP end point.
 - Output rgb channel and depth channel (as HSV) for reconstruction in threejs on the "other end"
 
 FFMPEG:
-- View Output
- ./ffplay -f dshow -video_size 1280x720 -vf "format=yuv420p" -i video="Unity Video Capture"
+- View Unity Output
+ ./ffplay -f dshow -video_size 640x960 -vf "format=yuv420p" -i video="Unity Video Capture"
  
-- Stream output to rtmp
- ./ffmpeg -f dshow -video_size 1280x720 -i video="Unity Video Capture" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf "format=yuv420p" -g 60 -f flv rtmp://localhost:1935/live/test
+- Stream output to rtmp, node media server
+ ./ffmpeg -f dshow -video_size 640x960 -i video="Unity Video Capture" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf "format=yuv420p" -g 60 -f flv rtmp://localhost:1935/live/test
  
+- Stream a debug video
+  ./ffmpeg -stream_loop -1 -i debug.mp4 -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf "format=yuv420p" -g 60 -f flv rtmp://localhost:1935/live/test
+ 
+- Play a stream from local node media server
+ ./ffplay http://localhost:8090/live/test/index.m3u8
