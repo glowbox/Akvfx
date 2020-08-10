@@ -1200,7 +1200,7 @@ GameObject:
   - component: {fileID: 477000595}
   - component: {fileID: 477000594}
   - component: {fileID: 477000593}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HSV Depth Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1262,7 +1262,13 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 4
+        m_Name: CameraInfo_farPlane
+        m_Overridden: 1
+      - m_Value: 0.1
+        m_Name: CameraInfo_nearPlane
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -1303,7 +1309,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477000592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
