@@ -53,6 +53,18 @@ namespace UnityTemplateProjects
         CameraState m_TargetCameraState = new CameraState();
         CameraState m_InterpolatingCameraState = new CameraState();
 
+        public void Reset()
+        {
+            m_TargetCameraState.pitch = 0;
+            m_TargetCameraState.roll = 0;
+            m_TargetCameraState.yaw = 0;
+
+
+            m_TargetCameraState.x = 0;
+            m_TargetCameraState.y = 0;
+            m_TargetCameraState.z = 0;
+        }
+
         [Header("Movement Settings")]
         [Tooltip("Exponential boost factor on translation, controllable by mouse wheel.")]
         public float boost = 3.5f;
@@ -141,7 +153,7 @@ namespace UnityTemplateProjects
             }*/
 
             // Rotation
-            if (Input.GetMouseButton(0))
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButton(0))
             {
                 var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
                 
