@@ -89,7 +89,6 @@ public class Config
         {
             if(_CurrentAppConfig != value)
             {
-                Debug.Log("Save!");
                 _CurrentAppConfig = value;
                 _CurrentAppConfig.Save(app_config);
             }        

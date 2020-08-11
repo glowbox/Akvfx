@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
+
+    bool streaming;
+    bool previewing;
     private void Awake()
     {
        
@@ -37,18 +40,41 @@ public class UIManager : MonoBehaviour
         //load
         Config.AppConfig config = Config.CurrentAppConfig;
 
-        if (GUILayout.Button("Preview Stream"))
+        if (previewing)
         {
-            PreviewStream();
+            if (GUILayout.Button("Stop Preview"))
+            {
+                PreviewStream(false);
+            }
         }
+        else
+        {
+            if (GUILayout.Button("Preview Stream"))
+            {
+                PreviewStream(true);
+            }
+        }
+        
 
         config.rtmp_path = GUILayout.TextField(config.rtmp_path.Length < 1 ? "rtmp url" : config.rtmp_path, 255);
         config.local_mediaserver_path = Config.CurrentAppConfig.local_mediaserver_path;
         config.ffmpeg_path = Config.CurrentAppConfig.ffmpeg_path;
-        
-        if (GUILayout.Button("Start Stream"))
+
+
+        if (streaming)
         {
-            StartStream();
+            if (GUILayout.Button("Stop Stream"))
+            {
+                ToggleStream(false);
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Start Stream"))
+            {
+                ToggleStream(true);
+            }
+
         }
 
         //postion
@@ -105,7 +131,8 @@ public class UIManager : MonoBehaviour
 
         if (GUILayout.Button("Reset Bounds", GUILayout.Width(120)))
         {
-            config.pos_x = config.pos_y = 0; config.pos_z = 2.0f;
+            config.pos_x = config.pos_y = 0.0f;
+            config.pos_z = 0;
             config.rot_x = config.rot_y= config.rot_z= 0.0f;
             config.scale_x = config.scale_y = config.scale_z = 4.0f;
         }
@@ -118,7 +145,7 @@ public class UIManager : MonoBehaviour
 
         Bounds.transform.localScale = new Vector3(config.scale_x, config.scale_y, config.scale_z);
 
-        Bounds.transform.position = new Vector3(config.pos_x, config.pos_y, config.pos_z);
+        Bounds.transform.position = new Vector3(config.pos_x, config.pos_y, config.scale_z/2.0f + config.pos_z);
 
         Bounds.transform.rotation = Quaternion.Euler(config.rot_x, config.rot_y, config.rot_z);
 
@@ -127,45 +154,63 @@ public class UIManager : MonoBehaviour
         Config.CurrentAppConfig = config;
     }
 
-    void StartStream()
+    void ToggleStream(bool stream)
     {
-        if (ffmpeg != null)
-        {           
-            ffmpeg.Kill();
-            ffmpeg = null;
+
+        if(stream)
+        {
+            if( ffmpeg == null)
+            {
+                ffmpeg = new Process();
+                ffmpeg.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
+                ffmpeg.StartInfo.Arguments = $"-f dshow -video_size 640x960 -i video=\"Unity Video Capture\" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv {Config.CurrentAppConfig.rtmp_path}";
+                ffmpeg.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+
+                ffmpeg.StartInfo.UseShellExecute = true;
+
+
+                ffmpeg.Start();
+                streaming = true;
+            }
+
         }
         else
         {
-            ffmpeg = new Process();
-            ffmpeg.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
-            ffmpeg.StartInfo.Arguments = $"-f dshow -video_size 640x960 -i video=\"Unity Video Capture\" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv {Config.CurrentAppConfig.rtmp_path}";
-            ffmpeg.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-
-            ffmpeg.StartInfo.UseShellExecute = true;
-        
-
-            ffmpeg.Start();
+            if (ffmpeg != null)
+            {
+                ffmpeg.Kill();
+                ffmpeg = null;
+            }
+            streaming = false;
         }
-
     }
-    void PreviewStream()
+
+    void PreviewStream( bool show)
     {
-        if( ffplay != null)
-        {       
-            ffplay.Kill();
-            ffplay = null;
+
+        if(show)
+        {
+            if (ffplay == null)
+            {
+                ffplay = new Process();
+                ffplay.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffplay.exe");
+                ffplay.StartInfo.Arguments = "-f dshow -video_size 640x960 -vf \"format = yuv420p\" -i video=\"Unity Video Capture\"";
+                ffplay.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+
+                ffplay.StartInfo.UseShellExecute = true;
+
+                ffplay.Start();
+                previewing = true;
+            }
         }
         else
         {
-            ffplay = new Process();
-            ffplay.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffplay.exe");
-            ffplay.StartInfo.Arguments = "-f dshow -video_size 640x960 -vf \"format = yuv420p\" -i video=\"Unity Video Capture\"";
-            ffplay.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-
-            ffplay.StartInfo.UseShellExecute = true;
-         
-            ffplay.Start();
-            
+            if( ffplay != null)
+            {
+                ffplay.Kill();
+                ffplay = null;
+            }
+            previewing = false;
         }
 
     }
