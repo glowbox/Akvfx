@@ -67,12 +67,20 @@ Shader "Unlit/Depth"
               return c.z * lerp(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
             }
 
+            //http://chilliant.blogspot.com/2012/08/srgb-approximations-for-hlsl.html
+            float3 rgb2srgb(float3 linearRGB) {
+                float3 S1 = sqrt(linearRGB);
+                float3 S2 = sqrt(S1);
+                float3 S3 = sqrt(S2);
+                return .662002687 * S1 + 0.684122060 * S2 - 0.323583601 * S3 - 0.0225411470 * linearRGB;
+            }
+
             //https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
             float CorrectDepth(float rawDepth)
             {
-                //float persp = Linear01Depth(rawDepth);
+                float persp = Linear01Depth(rawDepth);
                 float ortho = (_ProjectionParams.z - _ProjectionParams.y) * (1-rawDepth) + _ProjectionParams.y;
-                return ortho;// lerp(persp, ortho, unity_OrthoParams.w);
+                return lerp(persp, ortho, unity_OrthoParams.w);
             }
 
             fixed4 frag(v2f i) : SV_TARGET{
@@ -82,8 +90,8 @@ Shader "Unlit/Depth"
                 //https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
                 depth = CorrectDepth(depth) / _ProjectionParams.z;
 
-                float3 rgb = depth == 1 ? float3(0, 0, 0) : hsv2rgb ( float3(depth,1.0,1.0) );
-
+                float3 rgb = depth == 1 ? float3(0, 0, 0) : hsv2rgb(float3(depth, 1.0, 1.0));
+                
                 return float4(rgb,1.0);
             }
           
