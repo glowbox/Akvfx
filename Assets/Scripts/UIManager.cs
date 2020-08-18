@@ -178,6 +178,10 @@ public class UIManager : MonoBehaviour
 
         GUILayout.Box(OutputPreview, GUILayout.MaxHeight(250), GUILayout.MaxWidth(250));
 
+        PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
+
+
+
 
         //save changes
         Config.CurrentAppConfig = config;
