@@ -945,6 +945,7 @@ MonoBehaviour:
   Bounds: {fileID: 191034492}
   CameraPivot: {fileID: 1950470028}
   PointCloudVFXGraph: {fileID: 841514773}
+  OutputPreview: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
 --- !u!1 &758203810
 GameObject:
   m_ObjectHideFlags: 0

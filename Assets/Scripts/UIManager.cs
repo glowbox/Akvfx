@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
+    public Texture OutputPreview;
 
     bool streaming;
     bool previewing;
@@ -169,6 +170,8 @@ public class UIManager : MonoBehaviour
         GUILayout.EndHorizontal();
 
         PointCloudVFXGraph.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
+
+        GUILayout.Box(OutputPreview, GUILayout.MaxHeight(250), GUILayout.MaxWidth(250));
 
 
         //save changes
