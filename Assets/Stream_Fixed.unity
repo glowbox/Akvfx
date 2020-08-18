@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 191034495}
   - component: {fileID: 191034494}
   - component: {fileID: 191034493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Box Mask Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191034492}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1350,7 +1350,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -1541,7 +1541,7 @@ GameObject:
   - component: {fileID: 973512641}
   - component: {fileID: 973512640}
   - component: {fileID: 973512639}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Alignment Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1797,7 +1797,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -1869,7 +1869,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1303
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 6e99e272137dd4ca798016226389c618, type: 2}
   m_TargetDisplay: 0
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -2336,7 +2336,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -2408,7 +2408,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1303
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 286a613c91651404ba4c6d16e5b27575, type: 2}
   m_TargetDisplay: 0

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 191034495}
   - component: {fileID: 191034494}
   - component: {fileID: 191034493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Box Mask Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191034492}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -174,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 219a578cbe18b3847b68d8551e0dd3a7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1061,6 +1061,9 @@ VisualEffect:
       - m_Value: 0.01
         m_Name: PointSize
         m_Overridden: 1
+      - m_Value: 0
+        m_Name: Feather
+        m_Overridden: 1
     m_Vector2f:
       m_Array:
       - m_Value: {x: 10, y: 10}
@@ -1349,7 +1352,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -1702,7 +1705,7 @@ MonoBehaviour:
   clearDepth: 1
   volumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   volumeAnchorOverride: {fileID: 0}
   antialiasing: 0
   SMAAQuality: 2
@@ -1774,7 +1777,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1815
+    m_Bits: 1303
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
   m_TargetDisplay: 0
