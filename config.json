@@ -2,13 +2,26 @@
     "rtmp_path": "rtmp://global-live.mux.com:5222/app/d5baa055-cb39-07de-7be9-91cd4971a23d",
     "ffmpeg_path": "C:\\dev\\ffmpeg\\bin",
     "local_mediaserver_path": "C:\\dev\\rapid-response\\listen-zcam\\rtmp-server",
-    "pos_x": 0.0,
-    "pos_y": 0.0,
-    "pos_z": 0.0,
-    "rot_x": 0.0,
-    "rot_y": 0.0,
-    "rot_z": 0.0,
-    "scale_x": 3.0,
-    "scale_y": 3.0,
-    "scale_z": 3.0
+    "mask": {
+        "pos_x": 0.0,
+        "pos_y": 0.0,
+        "pos_z": 0.0,
+        "rot_x": 0.0,
+        "rot_y": 0.0,
+        "rot_z": 0.0,
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "scale_z": 1.0
+    },
+    "pointcloud": {
+        "pos_x": 0.0,
+        "pos_y": 0.0,
+        "pos_z": 0.0,
+        "rot_x": 344.0708312988281,
+        "rot_y": 0.0,
+        "rot_z": 0.0,
+        "scale_x": 0.0,
+        "scale_y": 0.0,
+        "scale_z": 0.0
+    }
 }

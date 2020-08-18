@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityTemplateProjects;
+using UnityEngine.VFX;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
+    public VisualEffect PointCloudVFXGraph;
 
     bool streaming;
     bool previewing;
@@ -80,19 +82,19 @@ public class UIManager : MonoBehaviour
         //postion
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Left:", GUILayout.Width(50));
-        config.pos_x = GUILayout.HorizontalScrollbar(config.pos_x, 1.0f, -3.0f, 3.0f);
+        config.mask.pos_x = GUILayout.HorizontalScrollbar(config.mask.pos_x, 1.0f, -3.0f, 3.0f);
         GUILayout.Label("Right", GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Up", GUILayout.Width(50));
-        config.pos_y = GUILayout.HorizontalScrollbar(config.pos_y, 1.0f, -2.0f, 4.0f);
+        config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f);
         GUILayout.Label("Down", GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Close", GUILayout.Width(50));
-        config.pos_z = GUILayout.HorizontalScrollbar(config.pos_z, 1.0f, 0.0f, 4.0f);
+        config.mask.pos_z = GUILayout.HorizontalScrollbar(config.mask.pos_z, 1.0f, 0.0f, 4.0f);
         GUILayout.Label("Far", GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
@@ -100,41 +102,41 @@ public class UIManager : MonoBehaviour
         //rotation
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Pitch:", GUILayout.Width(50));
-        config.rot_x = GUILayout.HorizontalScrollbar(config.rot_x, 1.0f, 0, 180f);
+        config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, 0, 180f);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Roll", GUILayout.Width(50));
-        config.rot_y = GUILayout.HorizontalScrollbar(config.rot_y, 1.0f, 0, 180f);
+        config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, 0, 180f);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Yaw", GUILayout.Width(50));
-        config.rot_z = GUILayout.HorizontalScrollbar(config.rot_z, 1.0f, 0, 180f);
+        config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, 0, 180f);
         GUILayout.EndHorizontal();
 
         //scale
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Width:", GUILayout.Width(50));
-        config.scale_x = GUILayout.HorizontalScrollbar(config.scale_x, 1.0f, 1.0f, 4.0f);
+        config.mask.scale_x = GUILayout.HorizontalScrollbar(config.mask.scale_x, 1.0f, 1.0f, 4.0f);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Height", GUILayout.Width(50));
-        config.scale_y = GUILayout.HorizontalScrollbar(config.scale_y, 1.0f, 1.0f, 4.0f);
+        config.mask.scale_y = GUILayout.HorizontalScrollbar(config.mask.scale_y, 1.0f, 1.0f, 4.0f);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
         GUILayout.Label("Depth", GUILayout.Width(50));
-        config.scale_z = GUILayout.HorizontalScrollbar(config.scale_z, 1.0f, 1.0f, 4.0f);
+        config.mask.scale_z = GUILayout.HorizontalScrollbar(config.mask.scale_z, 1.0f, 1.0f, 4.0f);
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Reset Bounds", GUILayout.Width(120)))
         {
-            config.pos_x = config.pos_y = 0.0f;
-            config.pos_z = 0;
-            config.rot_x = config.rot_y= config.rot_z= 0.0f;
-            config.scale_x = config.scale_y = config.scale_z = 4.0f;
+            config.mask.pos_x = config.mask.pos_y = 0.0f;
+            config.mask.pos_z = 0;
+            config.mask.rot_x = config.mask.rot_y= config.mask.rot_z= 0.0f;
+            config.mask.scale_x = config.mask.scale_y = config.mask.scale_z = 4.0f;
         }
 
 
@@ -143,11 +145,30 @@ public class UIManager : MonoBehaviour
             CameraPivot.Reset();
         }
 
-        Bounds.transform.localScale = new Vector3(config.scale_x, config.scale_y, config.scale_z);
+        Bounds.transform.localScale = new Vector3(config.mask.scale_x, config.mask.scale_y, config.mask.scale_z);
 
-        Bounds.transform.position = new Vector3(config.pos_x, config.pos_y, config.scale_z/2.0f + config.pos_z);
+        Bounds.transform.position = new Vector3(config.mask.pos_x, config.mask.pos_y, config.mask.scale_z/2.0f + config.mask.pos_z);
 
-        Bounds.transform.rotation = Quaternion.Euler(config.rot_x, config.rot_y, config.rot_z);
+        Bounds.transform.rotation = Quaternion.Euler(config.mask.rot_x, config.mask.rot_y, config.mask.rot_z);
+
+
+        //rotation
+        GUILayout.BeginHorizontal("Pointcloud", GUILayout.Width(300));
+        GUILayout.Label("Pitch:", GUILayout.Width(50));
+        config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal("Pointcloud", GUILayout.Width(300));
+        GUILayout.Label("Roll", GUILayout.Width(50));
+        config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal("Pointcloud", GUILayout.Width(300));
+        GUILayout.Label("Yaw", GUILayout.Width(50));
+        config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f);
+        GUILayout.EndHorizontal();
+
+        PointCloudVFXGraph.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
 
 
         //save changes

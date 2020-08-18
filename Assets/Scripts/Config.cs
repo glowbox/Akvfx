@@ -6,15 +6,8 @@ using UnityEngine;
 public class Config
 {
     public static string app_config = "config.json";
-
-
     [System.Serializable]
-    public struct AppConfig
-    {
-        public string rtmp_path;
-        public string ffmpeg_path;
-        public string local_mediaserver_path;
-
+    public struct Transformation {
         public float pos_x;
         public float pos_y;
         public float pos_z;
@@ -26,6 +19,19 @@ public class Config
         public float scale_x;
         public float scale_y;
         public float scale_z;
+    }
+
+    [System.Serializable]
+    public struct AppConfig
+    {
+        public string rtmp_path;
+        public string ffmpeg_path;
+        public string local_mediaserver_path;
+
+        public Transformation mask;
+
+        public Transformation pointcloud;
+
 
         [System.NonSerialized]
         public bool loaded;
