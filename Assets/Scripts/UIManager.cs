@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
 
+    public List<Camera> cameras;
+
     public List<VisualEffectAsset> VFXGraphs = new List<VisualEffectAsset>();
     public RenderTexture Output;
     public RenderTextureBroadcaster outputTextureBroadcaster;
@@ -31,17 +33,25 @@ public class UIManager : MonoBehaviour
     bool editingPointcloud;
 
     string[] vfxNames;
+
+    string[] cameraNames;
+    int currentCamera;
+    private List<Matrix4x4> initialCameraTransforms = new List<Matrix4x4>();
     private void Awake()
     {
        
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
         vfxNames = VFXGraphs.Select(v => v.name).ToArray();
+        cameraNames = cameras.Select(v => v.name).ToArray();
+        foreach(Camera camera in cameras){
+            initialCameraTransforms.Add(camera.transform.localToWorldMatrix);
+        }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -109,6 +119,19 @@ public class UIManager : MonoBehaviour
         if(config.vfxSelection != vfxSelection){
             PointCloudVFXGraph.visualEffectAsset = VFXGraphs[vfxSelection];
             config.vfxSelection = vfxSelection;
+        }
+
+        int cameraSelection = GUILayout.SelectionGrid(currentCamera, cameraNames, 3);
+        if(currentCamera != cameraSelection){
+            cameras[currentCamera].gameObject.SetActive(false);
+            currentCamera = cameraSelection;
+            Matrix4x4 startTransform = initialCameraTransforms[currentCamera];
+            Transform cameraTransform = cameras[currentCamera].transform;
+
+            cameraTransform.position = startTransform.MultiplyPoint(Vector3.zero);
+            cameraTransform.rotation = startTransform.rotation;
+
+            cameras[currentCamera].gameObject.SetActive(true);
         }
         
         editingMask = GUILayout.Toggle(editingMask, "Edit box mask bounds");
