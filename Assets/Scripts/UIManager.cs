@@ -116,53 +116,62 @@ public class UIManager : MonoBehaviour
             //postion
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Left:", GUILayout.Width(50));
-            config.mask.pos_x = GUILayout.HorizontalScrollbar(config.mask.pos_x, 1.0f, -3.0f, 3.0f);
+            config.mask.pos_x = GUILayout.HorizontalScrollbar(config.mask.pos_x, 1.0f, -3.0f, 3.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Right", GUILayout.Width(50));
+            float.TryParse(GUILayout.TextField(config.mask.pos_x.ToString()), out config.mask.pos_x);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Up", GUILayout.Width(50));
-            config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f);
+            config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Down", GUILayout.Width(50));
+            float.TryParse(GUILayout.TextField(config.mask.pos_y.ToString()), out config.mask.pos_y);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Close", GUILayout.Width(50));
-            config.mask.pos_z = GUILayout.HorizontalScrollbar(config.mask.pos_z, 1.0f, 0.0f, 4.0f);
+            config.mask.pos_z = GUILayout.HorizontalScrollbar(config.mask.pos_z, 1.0f, 0.0f, 4.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Far", GUILayout.Width(50));
+            float.TryParse(GUILayout.TextField(config.mask.pos_z.ToString()), out config.mask.pos_z);
             GUILayout.EndHorizontal();
 
             
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
-            config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, 0, 180f);
+            config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_x.ToString()), out config.mask.rot_x);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
-            config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, 0, 180f);
+            config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_y.ToString()), out config.mask.rot_y);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
-            config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, 0, 180f);
+            config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_z.ToString()), out config.mask.rot_z);
             GUILayout.EndHorizontal();
 
             //scale
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Width:", GUILayout.Width(50));
-            config.mask.scale_x = GUILayout.HorizontalScrollbar(config.mask.scale_x, 1.0f, 1.0f, 4.0f);
+            config.mask.scale_x = GUILayout.HorizontalScrollbar(config.mask.scale_x, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.scale_x.ToString()), out config.mask.scale_x);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Height", GUILayout.Width(50));
-            config.mask.scale_y = GUILayout.HorizontalScrollbar(config.mask.scale_y, 1.0f, 1.0f, 4.0f);
+            config.mask.scale_y = GUILayout.HorizontalScrollbar(config.mask.scale_y, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.scale_y.ToString()), out config.mask.scale_y);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Depth", GUILayout.Width(50));
-            config.mask.scale_z = GUILayout.HorizontalScrollbar(config.mask.scale_z, 1.0f, 1.0f, 4.0f);
+            config.mask.scale_z = GUILayout.HorizontalScrollbar(config.mask.scale_z, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.scale_z.ToString()), out config.mask.scale_z);
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset Bounds", GUILayout.Width(120)))
@@ -185,17 +194,20 @@ public class UIManager : MonoBehaviour
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
-            config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f);
+            config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_x.ToString()), out config.mask.pos_z);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
-            config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f);
+            config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_y.ToString()), out config.mask.pos_z);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
-            config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f);
+            config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            float.TryParse(GUILayout.TextField(config.mask.rot_z.ToString()), out config.mask.pos_z);
             GUILayout.EndHorizontal();
         }
         PointCloudVFXGraph.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
