@@ -195,19 +195,19 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
             config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_x.ToString()), out config.mask.pos_z);
+            float.TryParse(GUILayout.TextField(config.pointcloud.rot_x.ToString()), out config.pointcloud.pos_z);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
             config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_y.ToString()), out config.mask.pos_z);
+            float.TryParse(GUILayout.TextField(config.pointcloud.rot_y.ToString()), out config.pointcloud.pos_z);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
             config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_z.ToString()), out config.mask.pos_z);
+            float.TryParse(GUILayout.TextField(config.pointcloud.rot_z.ToString()), out config.pointcloud.pos_z);
             GUILayout.EndHorizontal();
         }
         PointCloudVFXGraph.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
