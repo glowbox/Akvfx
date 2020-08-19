@@ -950,6 +950,9 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 84033b8147dee10429ab32f59293f2fc, type: 3}
   - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
   OutputPreview: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
+  defaultOutputSettings:
+    width: 1920
+    height: 1080
 --- !u!1 &758203810
 GameObject:
   m_ObjectHideFlags: 0

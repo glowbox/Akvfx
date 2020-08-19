@@ -25,6 +25,12 @@ public class Config
     }
 
     [System.Serializable]
+    public struct TextureSettings {
+        public int width;
+        public int height;
+    }
+
+    [System.Serializable]
     public struct AppConfig
     {
         public string rtmp_path;
@@ -34,6 +40,8 @@ public class Config
         public Transformation mask;
 
         public Transformation pointcloud;
+
+        public TextureSettings output;
 
         public Mode mode;
         public int vfxSelection;

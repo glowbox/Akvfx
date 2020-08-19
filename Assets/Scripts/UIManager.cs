@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     public List<VisualEffectAsset> VFXGraphs = new List<VisualEffectAsset>();
     public Texture OutputPreview;
 
+    public Config.TextureSettings defaultOutputSettings;
+
     bool streaming;
     bool previewing;
 
@@ -86,6 +88,17 @@ public class UIManager : MonoBehaviour
             }
 
         }
+        if((config.output.height == 0 && config.output.width == 0) || config.mode != mode){
+            config.output.width = defaultOutputSettings.width;
+            config.output.height = defaultOutputSettings.height;
+        }
+        GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
+        GUILayout.Label("Output Width:", GUILayout.Width(50));
+        int.TryParse(GUILayout.TextField(config.output.width.ToString()), out config.output.width);
+        GUILayout.Label("Output Height", GUILayout.Width(50));
+        int.TryParse(GUILayout.TextField(config.output.height.ToString()), out config.output.height);
+        GUILayout.EndHorizontal();
+
         int vfxSelection = GUILayout.SelectionGrid(config.vfxSelection, vfxNames, 3);
         if(config.vfxSelection != vfxSelection){
             PointCloudVFXGraph.visualEffectAsset = VFXGraphs[vfxSelection];
@@ -192,6 +205,7 @@ public class UIManager : MonoBehaviour
 
 
 
+        config.mode = mode;
 
         //save changes
         Config.CurrentAppConfig = config;

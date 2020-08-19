@@ -950,7 +950,10 @@ MonoBehaviour:
   VFXGraphs:
   - {fileID: 8926484042661614526, guid: c4e17efec4712c847886f291d4e4a0ab, type: 3}
   - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
-  OutputPreview: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
+  Output: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
+  defaultOutputSettings:
+    width: 640
+    height: 480
 --- !u!1 &758203810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,8 +1162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 841514775}
   - {fileID: 841514777}
+  - {fileID: 841514775}
   m_VisualEffect: {fileID: 841514773}
 --- !u!114 &841514777
 MonoBehaviour:
