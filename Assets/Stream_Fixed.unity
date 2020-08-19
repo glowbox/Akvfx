@@ -943,9 +943,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c4e70742a09344eb392b7164551f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   Bounds: {fileID: 191034492}
   CameraPivot: {fileID: 1950470028}
   PointCloudVFXGraph: {fileID: 841514773}
+  VFXGraphs:
+  - {fileID: 8926484042661614526, guid: c4e17efec4712c847886f291d4e4a0ab, type: 3}
+  - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
   OutputPreview: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
 --- !u!1 &758203810
 GameObject:
@@ -1048,7 +1052,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841514771}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: c4e17efec4712c847886f291d4e4a0ab, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -1059,9 +1063,9 @@ VisualEffect:
       - m_Value: 0.002
         m_Name: Size
         m_Overridden: 0
-      - m_Value: 0.01
+      - m_Value: 0.005
         m_Name: PointSize
-        m_Overridden: 1
+        m_Overridden: 0
     m_Vector2f:
       m_Array:
       - m_Value: {x: 10, y: 10}
@@ -1155,8 +1159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 841514777}
   - {fileID: 841514775}
+  - {fileID: 841514777}
   m_VisualEffect: {fileID: 841514773}
 --- !u!114 &841514777
 MonoBehaviour:

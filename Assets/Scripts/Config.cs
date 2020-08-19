@@ -1,10 +1,13 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Config
 {
+ 
+    [System.Serializable]
+    public enum Mode { fixedView, freeformView };
     public static string app_config = "config.json";
     [System.Serializable]
     public struct Transformation {
@@ -32,6 +35,7 @@ public class Config
 
         public Transformation pointcloud;
 
+        public Mode mode;
         public int vfxSelection;
 
         [System.NonSerialized]

@@ -942,9 +942,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c4e70742a09344eb392b7164551f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
   Bounds: {fileID: 191034492}
   CameraPivot: {fileID: 1950470028}
   PointCloudVFXGraph: {fileID: 841514773}
+  VFXGraphs:
+  - {fileID: 8926484042661614526, guid: 84033b8147dee10429ab32f59293f2fc, type: 3}
+  - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
   OutputPreview: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
 --- !u!1 &758203810
 GameObject:
@@ -1060,7 +1064,7 @@ VisualEffect:
         m_Overridden: 0
       - m_Value: 0.01
         m_Name: PointSize
-        m_Overridden: 1
+        m_Overridden: 0
       - m_Value: 0
         m_Name: Feather
         m_Overridden: 1
@@ -1157,8 +1161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 841514775}
   - {fileID: 841514777}
+  - {fileID: 841514775}
   m_VisualEffect: {fileID: 841514773}
 --- !u!114 &841514777
 MonoBehaviour:

@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     Process ffplay;
     Process ffmpeg;
 
+    public Config.Mode mode = Config.Mode.fixedView;
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
