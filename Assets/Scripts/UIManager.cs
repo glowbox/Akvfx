@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityTemplateProjects;
 using UnityEngine.VFX;
+using UnityEngine.Animations;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
+    public PositionConstraint VFXPivot;
 
     public List<Camera> cameras;
 
@@ -213,7 +215,9 @@ public class UIManager : MonoBehaviour
         Bounds.transform.rotation = Quaternion.Euler(config.mask.rot_x, config.mask.rot_y, config.mask.rot_z);
         
         editingPointcloud = GUILayout.Toggle(editingPointcloud, "Edit pointcloud transform");
+
         if(editingPointcloud){
+            Vector3 startRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
@@ -232,8 +236,16 @@ public class UIManager : MonoBehaviour
             config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f, GUILayout.MinWidth(200));
             float.TryParse(GUILayout.TextField(config.pointcloud.rot_z.ToString()), out config.pointcloud.pos_z);
             GUILayout.EndHorizontal();
-        }
-        PointCloudVFXGraph.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
+            Vector3 endRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
+            
+            if(startRotation != endRotation){
+                VFXPivot.constraintActive = true;
+                VFXPivot.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
+            } else {
+                VFXPivot.constraintActive = false;
+            }
+        } 
+
 
         if (GUILayout.Button("Reset Camera", GUILayout.Width(120)))
         {
