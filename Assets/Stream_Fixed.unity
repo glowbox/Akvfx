@@ -951,9 +951,60 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: c4e17efec4712c847886f291d4e4a0ab, type: 3}
   - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
   Output: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
+  outputTextureBroadcaster: {fileID: 724530775}
   defaultOutputSettings:
     width: 640
     height: 480
+--- !u!1 &724530774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724530776}
+  - component: {fileID: 724530775}
+  m_Layer: 0
+  m_Name: Output Render Texture Broadcaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &724530775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724530774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac6613cdda5810498e85b3012c3815a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
+  cameraTargetTextures:
+  - {fileID: 1631795977}
+  uIManagerOutputs:
+  - {fileID: 526493425}
+  unityCaptureSources:
+  - {fileID: 1631795975}
+--- !u!4 &724530776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724530774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.18772745, y: 1.5800208, z: 7.452826}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758203810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,8 +1213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
   m_Bindings:
-  - {fileID: 841514777}
   - {fileID: 841514775}
+  - {fileID: 841514777}
   m_VisualEffect: {fileID: 841514773}
 --- !u!114 &841514777
 MonoBehaviour:

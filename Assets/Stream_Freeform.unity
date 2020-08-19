@@ -503,6 +503,56 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &404863004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404863006}
+  - component: {fileID: 404863005}
+  m_Layer: 0
+  m_Name: Output Render Texture Broadcaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &404863005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404863004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac6613cdda5810498e85b3012c3815a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 8400000, guid: 434dedf3b2ee9c4418d4e81c96066718, type: 2}
+  cameraTargetTextures:
+  - {fileID: 1437997600}
+  uIManagerOutputs:
+  - {fileID: 526493425}
+  unityCaptureSources:
+  - {fileID: 1437997601}
+--- !u!4 &404863006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404863004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.18772745, y: 1.5800208, z: 7.452826}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &457335181
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -949,7 +999,8 @@ MonoBehaviour:
   VFXGraphs:
   - {fileID: 8926484042661614526, guid: 84033b8147dee10429ab32f59293f2fc, type: 3}
   - {fileID: 8926484042661614526, guid: 17f72d34d84b1e6459a62ee843f51d04, type: 3}
-  OutputPreview: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
+  Output: {fileID: 8400000, guid: 7523d6e885c2cc14e8e003fa7bd14047, type: 2}
+  outputTextureBroadcaster: {fileID: 404863005}
   defaultOutputSettings:
     width: 1920
     height: 1080

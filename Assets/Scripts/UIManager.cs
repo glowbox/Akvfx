@@ -19,7 +19,8 @@ public class UIManager : MonoBehaviour
     public VisualEffect PointCloudVFXGraph;
 
     public List<VisualEffectAsset> VFXGraphs = new List<VisualEffectAsset>();
-    public Texture OutputPreview;
+    public RenderTexture Output;
+    public RenderTextureBroadcaster outputTextureBroadcaster;
 
     public Config.TextureSettings defaultOutputSettings;
 
@@ -88,6 +89,8 @@ public class UIManager : MonoBehaviour
             }
 
         }
+        int initialWidth = config.output.width;
+        int initialHeight = config.output.height;
         if((config.output.height == 0 && config.output.width == 0) || config.mode != mode){
             config.output.width = defaultOutputSettings.width;
             config.output.height = defaultOutputSettings.height;
@@ -98,6 +101,9 @@ public class UIManager : MonoBehaviour
         GUILayout.Label("Output Height", GUILayout.Width(50));
         int.TryParse(GUILayout.TextField(config.output.height.ToString()), out config.output.height);
         GUILayout.EndHorizontal();
+        if(initialWidth != config.output.width || initialHeight != config.output.height){
+            outputTextureBroadcaster.Resize(config.output.width, config.output.height);
+        }
 
         int vfxSelection = GUILayout.SelectionGrid(config.vfxSelection, vfxNames, 3);
         if(config.vfxSelection != vfxSelection){
@@ -199,7 +205,7 @@ public class UIManager : MonoBehaviour
             CameraPivot.Reset();
         }
 
-        GUILayout.Box(OutputPreview, GUILayout.MaxHeight(250), GUILayout.MaxWidth(250));
+        GUILayout.Box(Output, GUILayout.MaxHeight(250), GUILayout.MaxWidth(250));
 
         PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
