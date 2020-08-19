@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
         foreach(Camera camera in cameras){
             initialCameraTransforms.Add(camera.transform.localToWorldMatrix);
         }
+        VFXPivot.constraintActive = true;
     }
 
 
@@ -216,8 +217,10 @@ public class UIManager : MonoBehaviour
         
         editingPointcloud = GUILayout.Toggle(editingPointcloud, "Edit pointcloud transform");
 
+        Vector3 startRotation = Vector3.zero;
+        bool pointcloudRotationChanged = false;
         if(editingPointcloud){
-            Vector3 startRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
+            startRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
@@ -237,14 +240,11 @@ public class UIManager : MonoBehaviour
             float.TryParse(GUILayout.TextField(config.pointcloud.rot_z.ToString()), out config.pointcloud.pos_z);
             GUILayout.EndHorizontal();
             Vector3 endRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
-            
-            if(startRotation != endRotation){
-                VFXPivot.constraintActive = true;
-                VFXPivot.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
-            } else {
-                VFXPivot.constraintActive = false;
-            }
+            pointcloudRotationChanged = startRotation != endRotation;
         } 
+
+        VFXPivot.constraintActive = pointcloudRotationChanged;
+        VFXPivot.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
 
 
         if (GUILayout.Button("Reset Camera", GUILayout.Width(120)))
