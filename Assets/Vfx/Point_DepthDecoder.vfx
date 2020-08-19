@@ -1504,7 +1504,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614689}
   m_ExposedName: PositionMap
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 2
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -1793,7 +1793,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614778}
   m_ExposedName: PointSize
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 1
   m_Category: 
   m_Min:
     m_Type:
@@ -1923,7 +1923,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614905}
   m_ExposedName: MapWidth
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 4
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -2027,7 +2027,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614907}
   m_ExposedName: MapHeight
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 5
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -3304,7 +3304,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615027}
   m_ExposedName: HSVDepthMap
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 3
   m_Category: Akvfx
   m_Min:
     m_Type:
@@ -4872,7 +4872,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615105}
   m_ExposedName: CameraInfo
   m_Exposed: 1
-  m_Order: 5
+  m_Order: 6
   m_Category: 
   m_Min:
     m_Type:
@@ -7194,7 +7194,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615177}
   m_ExposedName: VisualizeHSVDepth
   m_Exposed: 1
-  m_Order: 6
+  m_Order: 7
   m_Category: 
   m_Min:
     m_Type:
@@ -7318,40 +7318,6 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
     attributes: []
   m_Direction: 0
-  m_LinkedSlots: []
---- !u!114 &8926484042661615193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
-  m_Children: []
-  m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
-  m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 8926484042661615193}
-  m_MasterData:
-    m_Owner: {fileID: 0}
-    m_Value:
-      m_Type:
-        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
-    m_Space: 2147483647
-  m_Property:
-    name: 
-    m_serializedType:
-      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-    attributes: []
-  m_Direction: 1
   m_LinkedSlots: []
 --- !u!114 &8926484042661615194
 MonoBehaviour:
@@ -7583,7 +7549,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615201}
   m_ExposedName: OrthoSize
   m_Exposed: 1
-  m_Order: 7
+  m_Order: 8
   m_Category: 
   m_Min:
     m_Type:
