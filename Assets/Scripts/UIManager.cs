@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     public GameObject Bounds;
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
+
+    public List<VisualEffectAsset> VFXGraphs = new List<VisualEffectAsset>();
     public Texture OutputPreview;
 
     bool streaming;
@@ -23,6 +25,8 @@ public class UIManager : MonoBehaviour
 
     bool editingMask;
     bool editingPointcloud;
+
+    string[] vfxNames;
     private void Awake()
     {
        
@@ -32,7 +36,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        vfxNames = VFXGraphs.Select(v => v.name).ToArray();
     }
 
     // Update is called once per frame
@@ -66,7 +70,6 @@ public class UIManager : MonoBehaviour
         config.local_mediaserver_path = Config.CurrentAppConfig.local_mediaserver_path;
         config.ffmpeg_path = Config.CurrentAppConfig.ffmpeg_path;
 
-
         if (streaming)
         {
             if (GUILayout.Button("Stop Stream"))
@@ -82,6 +85,12 @@ public class UIManager : MonoBehaviour
             }
 
         }
+        int vfxSelection = GUILayout.SelectionGrid(config.vfxSelection, vfxNames, 3);
+        if(config.vfxSelection != vfxSelection){
+            PointCloudVFXGraph.visualEffectAsset = VFXGraphs[vfxSelection];
+            config.vfxSelection = vfxSelection;
+        }
+        
         editingMask = GUILayout.Toggle(editingMask, "Edit box mask bounds");
         if(editingMask){
             //postion

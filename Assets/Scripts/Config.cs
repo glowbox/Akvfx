@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +32,7 @@ public class Config
 
         public Transformation pointcloud;
 
+        public int vfxSelection;
 
         [System.NonSerialized]
         public bool loaded;
