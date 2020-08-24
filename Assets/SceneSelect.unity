@@ -342,9 +342,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneNames:
-  - Stream_Fixed
-  - Stream_Freeform
-  - Stream_Freeform_Spout_Zoom
+  - uiName: Fixed (RTMP)
+    buildName: Stream_Fixed
+  - uiName: Freeform (DirectShow)
+    buildName: Stream_Freeform
+  - uiName: Freeform (Spout)
+    buildName: Stream_Freeform_Spout_Zoom
 --- !u!4 &1801316335
 Transform:
   m_ObjectHideFlags: 0

@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
         header = new GUIStyle();
         header.fontStyle = FontStyle.Bold;
         header.fontSize = 16;
+        header.normal.textColor = Color.white;
 
         description = new GUIStyle();
         description.fontStyle = FontStyle.Normal;
@@ -270,7 +271,7 @@ public class UIManager : MonoBehaviour
         PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
         GUILayout.BeginArea(new Rect(Screen.width - 300, Screen.height - 100, 300, 100));
-        GUILayout.TextArea(
+        GUILayout.Label(
             currentCamera == -1 ? 
             "Use W and S to move the camera forward and back, A and D to move left and right. Hold ctrl and move mouse to look." 
             : "Use W and S to move the camera up and down, A and D to move the left and right. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
