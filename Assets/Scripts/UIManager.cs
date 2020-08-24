@@ -267,7 +267,7 @@ public class UIManager : MonoBehaviour
         }
 
         
-        GUILayout.BeginArea(new Rect(Screen.width - 350, 50, 300, 500));
+        GUILayout.BeginArea(new Rect(Screen.width - 320, 20, 300, 500));
         GUILayout.Box(Output,GUIStyle.none, GUILayout.MaxWidth(300), GUILayout.MaxHeight(500));
         GUILayout.EndArea ();
 
