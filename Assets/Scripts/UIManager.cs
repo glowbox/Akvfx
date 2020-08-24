@@ -39,11 +39,6 @@ public class UIManager : MonoBehaviour
 
     string[] cameraNames;
     int currentCamera = -1;
-    private void Awake()
-    {
-       
-    }
-
     GUIStyle header;
     GUIStyle description;
 
@@ -63,13 +58,6 @@ public class UIManager : MonoBehaviour
         description.fontSize = 14;
         description.normal.textColor = Color.grey;
         description.wordWrap = true;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void OnGUI()
