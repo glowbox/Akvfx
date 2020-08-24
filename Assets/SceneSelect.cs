@@ -36,9 +36,9 @@ public class SceneSelect : MonoBehaviour
         GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
         GUILayout.FlexibleSpace();
 
-        GUILayout.Label("Mode", header);
-
-        sceneSelection = GUILayout.SelectionGrid(sceneSelection, uiNames, 1);
+        GUILayout.Label("Select Mode", header);
+        GUILayout.Label("");
+        sceneSelection = GUILayout.SelectionGrid(sceneSelection, uiNames, uiNames.Length, GUILayout.MinHeight(200));
         if(sceneSelection != -1){
             SceneManager.LoadScene(sceneNames[sceneSelection].buildName);
         }
