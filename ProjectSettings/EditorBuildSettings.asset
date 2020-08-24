@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/SceneSelect.unity
+    guid: c29a3431816090b4894bc1c5f00fe9ea
+  - enabled: 1
     path: Assets/Stream_Fixed.unity
-    guid: e8d49a12d5fab634ebdf2c2d814901f3
+    guid: 363ba518f0407574a8c1712d727883f6
+  - enabled: 1
+    path: Assets/Stream_Freeform.unity
+    guid: 37946661de8f9bf459d1fdc82bbdbea9
+  - enabled: 1
+    path: Assets/Stream_Freeform_Spout_Zoom.unity
+    guid: 559f45809c5f2bd41adfa117d75639ff
   - enabled: 1
     path: Assets/Stream_VFXDepth.unity
     guid: 243741bff9e39404d81d5f46261c0ff9
