@@ -266,9 +266,11 @@ public class UIManager : MonoBehaviour
             CameraPivot.Reset();
         }
 
-        GUILayout.Box(Output, GUILayout.MaxHeight(250), GUILayout.MaxWidth(300));
+        
+        GUILayout.BeginArea(new Rect(Screen.width - 350, 50, 300, 500));
+        GUILayout.Box(Output,GUIStyle.none, GUILayout.MaxWidth(300), GUILayout.MaxHeight(500));
+        GUILayout.EndArea ();
 
-        PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
         GUILayout.BeginArea(new Rect(Screen.width - 300, Screen.height - 100, 300, 100));
         GUILayout.Label(
@@ -276,6 +278,7 @@ public class UIManager : MonoBehaviour
             "Use W and S to move the camera forward and back, A and D to move left and right. Hold ctrl and move mouse to look." 
             : "Pan camera with WASD keys or by holding middle mouse and moving mouse. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
         GUILayout.EndArea ();
+        PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
         config.mode = mode;
 
