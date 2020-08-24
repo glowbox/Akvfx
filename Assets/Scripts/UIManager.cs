@@ -274,7 +274,7 @@ public class UIManager : MonoBehaviour
         GUILayout.Label(
             currentCamera == -1 ? 
             "Use W and S to move the camera forward and back, A and D to move left and right. Hold ctrl and move mouse to look." 
-            : "Use W and S to move the camera up and down, A and D to move the left and right. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
+            : "Pan camera with WASD keys or by holding middle mouse and moving mouse. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
         GUILayout.EndArea ();
 
         config.mode = mode;
