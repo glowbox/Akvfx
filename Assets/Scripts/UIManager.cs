@@ -16,11 +16,12 @@ public class UIManager : MonoBehaviour
 
     public Config.Mode mode = Config.Mode.fixedView;
     public GameObject Bounds;
+    public Camera PreviewCamera;
     public SimpleCameraController CameraPivot;
     public VisualEffect PointCloudVFXGraph;
     public PositionConstraint VFXPivot;
 
-    public List<Camera> cameras;
+    public List<OrthographicCameraController> orthographicCameras;
 
     public List<VisualEffectAsset> VFXGraphs = new List<VisualEffectAsset>();
     public RenderTexture Output;
@@ -37,8 +38,7 @@ public class UIManager : MonoBehaviour
     string[] vfxNames;
 
     string[] cameraNames;
-    int currentCamera;
-    private List<Matrix4x4> initialCameraTransforms = new List<Matrix4x4>();
+    int currentCamera = -1;
     private void Awake()
     {
        
@@ -48,10 +48,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         vfxNames = VFXGraphs.Select(v => v.name).ToArray();
-        cameraNames = cameras.Select(v => v.name).ToArray();
-        foreach(Camera camera in cameras){
-            initialCameraTransforms.Add(camera.transform.localToWorldMatrix);
-        }
+        cameraNames = orthographicCameras.Select(v => v.name).ToArray();
         VFXPivot.constraintActive = true;
     }
 
@@ -123,18 +120,22 @@ public class UIManager : MonoBehaviour
             PointCloudVFXGraph.visualEffectAsset = VFXGraphs[vfxSelection];
             config.vfxSelection = vfxSelection;
         }
-
-        int cameraSelection = GUILayout.SelectionGrid(currentCamera, cameraNames, 3);
+        if(GUILayout.Button("Main Camera") && currentCamera != -1){
+            currentCamera = -1;
+            CameraPivot.enabled = true;
+            PreviewCamera.gameObject.SetActive(true);
+        }
+        int cameraSelection = GUILayout.SelectionGrid(currentCamera, cameraNames, 2);
         if(currentCamera != cameraSelection){
-            cameras[currentCamera].gameObject.SetActive(false);
+            if(currentCamera == -1){
+                CameraPivot.enabled = false;
+                PreviewCamera.gameObject.SetActive(false);
+            } else {
+                orthographicCameras[currentCamera].gameObject.SetActive(false);
+            }
             currentCamera = cameraSelection;
-            Matrix4x4 startTransform = initialCameraTransforms[currentCamera];
-            Transform cameraTransform = cameras[currentCamera].transform;
-
-            cameraTransform.position = startTransform.MultiplyPoint(Vector3.zero);
-            cameraTransform.rotation = startTransform.rotation;
-
-            cameras[currentCamera].gameObject.SetActive(true);
+            orthographicCameras[currentCamera].gameObject.SetActive(true);
+            orthographicCameras[currentCamera].Reset();
         }
         
         editingMask = GUILayout.Toggle(editingMask, "Edit box mask bounds");
