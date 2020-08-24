@@ -22,6 +22,7 @@ public class OrthographicCameraController : MonoBehaviour
     void Update()
     {
         cam.orthographicSize += -Input.mouseScrollDelta.y * Time.deltaTime * zoomSpeed;
+        cam.orthographicSize = Mathf.Max(cam.orthographicSize, .01f);
         if(Input.GetMouseButton(2)){
             Vector3 delta = -(Input.mousePosition - lastMousePosition);
             delta.x /= Screen.width;
