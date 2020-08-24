@@ -10,11 +10,13 @@ public class SceneSelect : MonoBehaviour
 
     void OnGUI(){
         GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+        GUILayout.FlexibleSpace();
 
         sceneSelection = GUILayout.SelectionGrid(sceneSelection, sceneNames, 1);
         if(sceneSelection != -1){
             SceneManager.LoadScene(sceneNames[sceneSelection]);
         }
+        GUILayout.FlexibleSpace();
 
         GUILayout.EndArea ();
 
