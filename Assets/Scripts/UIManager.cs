@@ -44,12 +44,24 @@ public class UIManager : MonoBehaviour
        
     }
 
-    // Start is called before the first frame update
+    GUIStyle header;
+    GUIStyle description;
+
     void Start()
     {
         vfxNames = VFXGraphs.Select(v => v.name).ToArray();
         cameraNames = orthographicCameras.Select(v => v.name).ToArray();
         VFXPivot.constraintActive = true;
+
+        header = new GUIStyle();
+        header.fontStyle = FontStyle.Bold;
+        header.fontSize = 16;
+
+        description = new GUIStyle();
+        description.fontStyle = FontStyle.Normal;
+        description.fontSize = 14;
+        description.normal.textColor = Color.grey;
+        description.wordWrap = true;
     }
 
 
@@ -253,11 +265,16 @@ public class UIManager : MonoBehaviour
             CameraPivot.Reset();
         }
 
-        GUILayout.Box(Output, GUILayout.MaxHeight(250), GUILayout.MaxWidth(250));
+        GUILayout.Box(Output, GUILayout.MaxHeight(250), GUILayout.MaxWidth(300));
 
         PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
-
+        GUILayout.BeginArea(new Rect(Screen.width - 300, Screen.height - 100, 300, 100));
+        GUILayout.TextArea(
+            currentCamera == -1 ? 
+            "Use W and S to move the camera forward and back, A and D to move left and right. Hold ctrl and move mouse to look." 
+            : "Use W and S to move the camera up and down, A and D to move the left and right. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
+        GUILayout.EndArea ();
 
         config.mode = mode;
 
