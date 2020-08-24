@@ -150,9 +150,9 @@ public class UIManager : MonoBehaviour
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
-            GUILayout.Label("Up", GUILayout.Width(50));
-            config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Down", GUILayout.Width(50));
+            config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f, GUILayout.MinWidth(200));
+            GUILayout.Label("Up", GUILayout.Width(50));
             float.TryParse(GUILayout.TextField(config.mask.pos_y.ToString()), out config.mask.pos_y);
             GUILayout.EndHorizontal();
 
