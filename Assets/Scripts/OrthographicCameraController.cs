@@ -26,11 +26,12 @@ public class OrthographicCameraController : MonoBehaviour
             Vector3 delta = -(Input.mousePosition - lastMousePosition);
             delta.x /= Screen.width;
             delta.y /= Screen.height;
+            delta *= cam.orthographicSize;
             cam.transform.position += transform.up * delta.y * Time.deltaTime * mousePanSpeed;
             cam.transform.position += transform.right * delta.x * Time.deltaTime * mousePanSpeed;
         } else {
-            cam.transform.position += transform.up * Input.GetAxis("Vertical") * Time.deltaTime;
-            cam.transform.position += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime;
+            cam.transform.position += transform.up * Input.GetAxis("Vertical") * Time.deltaTime * cam.orthographicSize;
+            cam.transform.position += transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * cam.orthographicSize;
         }
         lastMousePosition = Input.mousePosition;
     }
