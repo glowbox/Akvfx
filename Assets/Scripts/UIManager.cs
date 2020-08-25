@@ -383,11 +383,11 @@ public class UIManager : MonoBehaviour
         GUILayout.EndArea ();
 
 
-        GUILayout.BeginArea(new Rect(Screen.width - 300, Screen.height - 100, 300, 100));
+        GUILayout.BeginArea(new Rect(Screen.width - 310, Screen.height - 100, 300, 100));
         GUILayout.Label(
             currentCamera == -1 ? 
-            "Use W and S to move the camera forward and back, A and D to move left and right. Hold ctrl, left click, and move mouse to rotate view." 
-            : "Pan camera with WASD keys or by holding middle mouse and moving mouse. Scroll to zoom in and out.", description, GUILayout.MaxWidth(250));
+            "Use W and S to move the camera forward and back, A and D to move left and right, Q and E to move up and down. Hold ctrl, left click, and move mouse to rotate view. Scroll to move faster." 
+            : "Pan camera with WASD keys or by holding middle mouse and moving mouse. Scroll to zoom in and out.", description, GUILayout.MaxWidth(290));
         GUILayout.EndArea ();
         PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
