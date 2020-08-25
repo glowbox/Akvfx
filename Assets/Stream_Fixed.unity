@@ -961,7 +961,7 @@ MonoBehaviour:
   outputTextureBroadcaster: {fileID: 724530775}
   defaultOutputSettings:
     width: 640
-    height: 480
+    height: 960
 --- !u!114 &577333388 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 747927882432503999, guid: ff0023d436cd76a4298a4df2656cb1ba,
