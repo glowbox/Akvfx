@@ -393,7 +393,6 @@ public class UIManager : MonoBehaviour
 
         config.mode = mode;
 
-        print(GUI.GetNameOfFocusedControl());
         //save changes
         Config.CurrentAppConfig = config;
         lastFocusedControl = GUI.GetNameOfFocusedControl();
