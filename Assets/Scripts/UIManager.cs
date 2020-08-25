@@ -42,6 +42,9 @@ public class UIManager : MonoBehaviour
     GUIStyle header;
     GUIStyle description;
 
+    string inputBuffer;
+    string lastFocusedControl;
+
     void Start()
     {
         vfxNames = VFXGraphs.Select(v => v.name).ToArray();
@@ -64,6 +67,9 @@ public class UIManager : MonoBehaviour
     {
         //load
         Config.AppConfig config = Config.CurrentAppConfig;
+        bool focusedChanged = lastFocusedControl != GUI.GetNameOfFocusedControl();
+        bool isFocused = false;
+        string currentControlName = "";
 
         if (previewing)
         {
@@ -107,10 +113,27 @@ public class UIManager : MonoBehaviour
             config.output.height = defaultOutputSettings.height;
         }
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
-        GUILayout.Label("Output Width:", GUILayout.Width(50));
-        int.TryParse(GUILayout.TextField(config.output.width.ToString()), out config.output.width);
-        GUILayout.Label("Output Height", GUILayout.Width(50));
-        int.TryParse(GUILayout.TextField(config.output.height.ToString()), out config.output.height);
+        
+        currentControlName = "Output Width";
+        GUI.SetNextControlName(currentControlName);
+        GUILayout.Label(currentControlName, GUILayout.Width(50));
+        isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+        if(isFocused){
+            inputBuffer = GUILayout.TextField(ParseIntField(config.output.width, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+        } else {
+            int.TryParse(GUILayout.TextField(ParseIntField(config.output.width, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.output.width);
+        }
+
+        currentControlName = "Output Height";
+        GUI.SetNextControlName(currentControlName);
+        GUILayout.Label(currentControlName, GUILayout.Width(50));
+        isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+        if(isFocused){
+            inputBuffer = GUILayout.TextField(ParseIntField(config.output.height, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+        } else {
+            int.TryParse(GUILayout.TextField(ParseIntField(config.output.height, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.output.height);
+        }
+
         GUILayout.EndHorizontal();
         if(initialWidth != config.output.width || initialHeight != config.output.height){
             outputTextureBroadcaster.Resize(config.output.width, config.output.height);
@@ -146,21 +169,48 @@ public class UIManager : MonoBehaviour
             GUILayout.Label("Left:", GUILayout.Width(50));
             config.mask.pos_x = GUILayout.HorizontalScrollbar(config.mask.pos_x, 1.0f, -3.0f, 3.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Right", GUILayout.Width(50));
-            float.TryParse(GUILayout.TextField(config.mask.pos_x.ToString()), out config.mask.pos_x);
+
+            currentControlName = "Box xPos";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_x);
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Down", GUILayout.Width(50));
             config.mask.pos_y = GUILayout.HorizontalScrollbar(config.mask.pos_y, 1.0f, -2.0f, 4.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Up", GUILayout.Width(50));
-            float.TryParse(GUILayout.TextField(config.mask.pos_y.ToString()), out config.mask.pos_y);
+
+            currentControlName = "Box yPos";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_y);
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Close", GUILayout.Width(50));
             config.mask.pos_z = GUILayout.HorizontalScrollbar(config.mask.pos_z, 1.0f, 0.0f, 4.0f, GUILayout.MinWidth(200));
             GUILayout.Label("Far", GUILayout.Width(50));
-            float.TryParse(GUILayout.TextField(config.mask.pos_z.ToString()), out config.mask.pos_z);
+
+            currentControlName = "Box zPos";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_z);
+            }
+            
             GUILayout.EndHorizontal();
 
             
@@ -168,38 +218,87 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
             config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, 0, 180f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_x.ToString()), out config.mask.rot_x);
+
+            currentControlName = "Box xRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_x);
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
             config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, 0, 180f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_y.ToString()), out config.mask.rot_y);
+
+            currentControlName = "Box yRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_y);
+            }
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
             config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, 0, 180f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.rot_z.ToString()), out config.mask.rot_z);
+            
+            currentControlName = "Box zRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_z);
+            }
             GUILayout.EndHorizontal();
 
             //scale
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Width:", GUILayout.Width(50));
             config.mask.scale_x = GUILayout.HorizontalScrollbar(config.mask.scale_x, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.scale_x.ToString()), out config.mask.scale_x);
+            
+            currentControlName = "Box xScale";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_x);
+            }
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Height", GUILayout.Width(50));
             config.mask.scale_y = GUILayout.HorizontalScrollbar(config.mask.scale_y, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.scale_y.ToString()), out config.mask.scale_y);
+            
+            currentControlName = "Box yScale";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_y);
+            }
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Depth", GUILayout.Width(50));
             config.mask.scale_z = GUILayout.HorizontalScrollbar(config.mask.scale_z, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.mask.scale_z.ToString()), out config.mask.scale_z);
+            
+            currentControlName = "Box zScale";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_z);
+            }
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset Bounds", GUILayout.Width(120)))
@@ -227,19 +326,43 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
             config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.pointcloud.rot_x.ToString()), out config.pointcloud.pos_z);
+            
+            currentControlName = "PC xRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_x);
+            }
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
             config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.pointcloud.rot_y.ToString()), out config.pointcloud.pos_z);
+            
+            currentControlName = "PC yRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_y);
+            }
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
             config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f, GUILayout.MinWidth(200));
-            float.TryParse(GUILayout.TextField(config.pointcloud.rot_z.ToString()), out config.pointcloud.pos_z);
+            
+            currentControlName = "PC zRot";
+            GUI.SetNextControlName(currentControlName);
+            isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
+            if(isFocused){
+                inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
+            } else {
+                float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_z);
+            }
             GUILayout.EndHorizontal();
             Vector3 endRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
             pointcloudRotationChanged = startRotation != endRotation;
@@ -270,8 +393,35 @@ public class UIManager : MonoBehaviour
 
         config.mode = mode;
 
+        print(GUI.GetNameOfFocusedControl());
         //save changes
         Config.CurrentAppConfig = config;
+        lastFocusedControl = GUI.GetNameOfFocusedControl();
+        if(Event.current.keyCode == KeyCode.Return){
+            GUI.FocusControl(null);
+        }
+    }
+
+    string ParseIntField(int value, bool focused, bool focusChanged){
+        if(focused){
+            return inputBuffer;
+        } else if(focusChanged){
+            if(int.TryParse(inputBuffer, out value)){
+            } 
+            inputBuffer = "";
+        } 
+        return value.ToString();
+    }
+
+    string ParseFloatField(float value, bool focused, bool focusChanged){
+        if(focused){
+            return inputBuffer;
+        } else if(focusChanged){
+            if(float.TryParse(inputBuffer, out value)){
+            } 
+            inputBuffer = "";
+        } 
+        return value.ToString();
     }
 
     void ToggleStream(bool stream)
