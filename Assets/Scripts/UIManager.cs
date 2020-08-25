@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
         cameraNames = orthographicCameras.Select(v => v.name).ToArray();
         VFXPivot.constraintActive = true;
 
+        PointCloudVFXGraph.visualEffectAsset = VFXGraphs[0];
+
         header = new GUIStyle();
         header.fontStyle = FontStyle.Bold;
         header.fontSize = 16;
