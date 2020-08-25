@@ -2360,6 +2360,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 241463786, guid: ff0023d436cd76a4298a4df2656cb1ba, type: 3}
+      propertyPath: m_Sources.Array.data[0].sourceTransform
+      value: 
+      objectReference: {fileID: 191034496}
     - target: {fileID: 5795654100305168834, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
       propertyPath: m_Name
@@ -2378,7 +2382,7 @@ PrefabInstance:
     - target: {fileID: 5795654100305168835, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5795654100305168835, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}

@@ -1008,8 +1008,7 @@ MonoBehaviour:
   - {fileID: 1631795977}
   uIManagerOutputs:
   - {fileID: 526493425}
-  unityCaptureSources:
-  - {fileID: 1631795975}
+  spoutSenders: []
 --- !u!4 &724530776
 Transform:
   m_ObjectHideFlags: 0
@@ -2745,6 +2744,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 241463786, guid: ff0023d436cd76a4298a4df2656cb1ba, type: 3}
+      propertyPath: m_Sources.Array.data[0].sourceTransform
+      value: 
+      objectReference: {fileID: 191034496}
+    - target: {fileID: 241463786, guid: ff0023d436cd76a4298a4df2656cb1ba, type: 3}
+      propertyPath: m_TranslationAtRest.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 241463786, guid: ff0023d436cd76a4298a4df2656cb1ba, type: 3}
+      propertyPath: m_TranslationAtRest.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5795654100305168834, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
       propertyPath: m_Name
@@ -2758,12 +2769,12 @@ PrefabInstance:
     - target: {fileID: 5795654100305168835, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5795654100305168835, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5795654100305168835, guid: ff0023d436cd76a4298a4df2656cb1ba,
         type: 3}
