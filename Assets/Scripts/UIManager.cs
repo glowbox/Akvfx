@@ -162,8 +162,14 @@ public class UIManager : MonoBehaviour
             currentCamera = cameraSelection;
             orthographicCameras[currentCamera].gameObject.SetActive(true);
             orthographicCameras[currentCamera].Reset();
+        }       
+        if (GUILayout.Button("Reset Camera", GUILayout.Width(120)))
+        {
+            currentCamera = -1;
+            CameraPivot.enabled = true;
+            CameraPivot.Reset();
+            PreviewCamera.gameObject.SetActive(true);
         }
-        
         editingMask = GUILayout.Toggle(editingMask, "Edit box mask bounds");
         if(editingMask){
             //postion
@@ -372,12 +378,6 @@ public class UIManager : MonoBehaviour
 
         VFXPivot.constraintActive = pointcloudRotationChanged;
         VFXPivot.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
-
-
-        if (GUILayout.Button("Reset Camera", GUILayout.Width(120)))
-        {
-            CameraPivot.Reset();
-        }
 
         
         GUILayout.BeginArea(new Rect(Screen.width - 320, 20, 300, 500));
