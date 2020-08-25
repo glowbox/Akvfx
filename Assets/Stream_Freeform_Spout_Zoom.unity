@@ -948,7 +948,7 @@ MonoBehaviour:
   - {fileID: 1530029774}
   VFXGraphs:
   - {fileID: 8926484042661614526, guid: 84033b8147dee10429ab32f59293f2fc, type: 3}
-  Output: {fileID: 8400000, guid: 6e99e272137dd4ca798016226389c618, type: 2}
+  Output: {fileID: 8400000, guid: ced6f06a5317fd446b33a44f9d526d1c, type: 2}
   outputTextureBroadcaster: {fileID: 724992973}
   defaultOutputSettings:
     width: 1280
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac6613cdda5810498e85b3012c3815a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 8400000, guid: 6e99e272137dd4ca798016226389c618, type: 2}
+  texture: {fileID: 8400000, guid: ced6f06a5317fd446b33a44f9d526d1c, type: 2}
   cameraTargetTextures:
   - {fileID: 1437997600}
   uIManagerOutputs:
