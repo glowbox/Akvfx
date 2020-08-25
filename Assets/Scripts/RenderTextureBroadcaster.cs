@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Klak.Spout;
 [System.Serializable]
 public class RenderTextureEvent : UnityEvent<RenderTexture>
 {
@@ -13,7 +14,7 @@ public class RenderTextureBroadcaster : MonoBehaviour
     [Header("Subscribers")]
     public List<Camera> cameraTargetTextures;
     public List<UIManager> uIManagerOutputs;
-    public List<UnityCapture> unityCaptureSources;
+    public List<SpoutSender> spoutSenders;
 
     public void UpdateTexture(RenderTexture texture){
         texture.Release();
@@ -24,8 +25,8 @@ public class RenderTextureBroadcaster : MonoBehaviour
         foreach(UIManager uIManager in uIManagerOutputs){
             uIManager.Output = texture;
         }
-        foreach(UnityCapture unityCapture in unityCaptureSources){
-            unityCapture.source = texture;
+        foreach(SpoutSender spoutSender in spoutSenders){
+            spoutSender.sourceTexture = texture;
         }
     }
 
