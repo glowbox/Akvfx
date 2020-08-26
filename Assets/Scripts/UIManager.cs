@@ -225,7 +225,7 @@ public class UIManager : MonoBehaviour
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
-            config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            config.mask.rot_x = GUILayout.HorizontalScrollbar(config.mask.rot_x, 1.0f, -90f, 90f, GUILayout.MinWidth(200));
 
             currentControlName = "Box xRot";
             GUI.SetNextControlName(currentControlName);
@@ -240,7 +240,7 @@ public class UIManager : MonoBehaviour
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
-            config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            config.mask.rot_y = GUILayout.HorizontalScrollbar(config.mask.rot_y, 1.0f, -90f, 90f, GUILayout.MinWidth(200));
 
             currentControlName = "Box yRot";
             GUI.SetNextControlName(currentControlName);
@@ -254,7 +254,7 @@ public class UIManager : MonoBehaviour
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
-            config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, 0, 180f, GUILayout.MinWidth(200));
+            config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, -90f, 90f, GUILayout.MinWidth(200));
             
             currentControlName = "Box zRot";
             GUI.SetNextControlName(currentControlName);
@@ -333,7 +333,7 @@ public class UIManager : MonoBehaviour
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
-            config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
             
             currentControlName = "PC xRot";
             GUI.SetNextControlName(currentControlName);
@@ -347,7 +347,7 @@ public class UIManager : MonoBehaviour
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
-            config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
             
             currentControlName = "PC yRot";
             GUI.SetNextControlName(currentControlName);
@@ -361,7 +361,7 @@ public class UIManager : MonoBehaviour
 
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
-            config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, 0, 360f, GUILayout.MinWidth(200));
+            config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
             
             currentControlName = "PC zRot";
             GUI.SetNextControlName(currentControlName);
