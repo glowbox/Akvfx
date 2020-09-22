@@ -90,7 +90,6 @@ public class UIManager : MonoBehaviour
         
 
         config.rtmp_path = GUILayout.TextField(config.rtmp_path.Length < 1 ? "rtmp url" : config.rtmp_path, 255);
-        config.local_mediaserver_path = Config.CurrentAppConfig.local_mediaserver_path;
         config.ffmpeg_path = Config.CurrentAppConfig.ffmpeg_path;
 
         if (streaming)
@@ -433,8 +432,25 @@ public class UIManager : MonoBehaviour
             if( ffmpeg == null)
             {
                 ffmpeg = new Process();
-                ffmpeg.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
-                ffmpeg.StartInfo.Arguments = $"-f dshow -video_size 640x960 -i video=\"Unity Video Capture\" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv {Config.CurrentAppConfig.rtmp_path}";
+                string ffmpegLocation = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
+                if (!File.Exists(ffmpegLocation))
+                {
+                    var enviromentPath = System.Environment.GetEnvironmentVariable("PATH");
+
+                    UnityEngine.Debug.Log(enviromentPath);
+                    var paths = enviromentPath.Split(';');
+                    var exePath = paths.Select(x => Path.Combine(x, "ffmpeg.exe"))
+                                       .Where(x => File.Exists(x))
+                                       .FirstOrDefault();
+
+                
+
+                    ffmpegLocation = exePath;
+                }
+
+                UnityEngine.Debug.Log("Launch " + ffmpegLocation);
+                ffmpeg.StartInfo.FileName = ffmpegLocation;
+                ffmpeg.StartInfo.Arguments = $"-f dshow -video_size 640x960 -i video=\"SpoutCam\" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv {Config.CurrentAppConfig.rtmp_path}";
                 ffmpeg.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 ffmpeg.StartInfo.UseShellExecute = true;

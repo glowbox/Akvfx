@@ -35,7 +35,6 @@ public class Config
     {
         public string rtmp_path;
         public string ffmpeg_path;
-        public string local_mediaserver_path;
 
         public Transformation mask;
 

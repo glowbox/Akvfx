@@ -25,3 +25,5 @@ obj/
 ffmpeg.exe
 
 ffplay.exe
+
+config.json
