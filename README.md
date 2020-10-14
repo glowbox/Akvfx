@@ -1,7 +1,7 @@
 Volumetric Performance Toolbox
 =====
 
->> How can artists create new live performances during the time of COVID-19? Volumetric Performance Toolbox empowers creators to perform from their own living spaces for a virtual audience. Movement artist Valencia James performed publicly with the Toolbox for the first time on September 24, 2020 in the Mozilla Hubs virtual social space. The project is a collaboration with Valencia and creative technologist Sorob Louie as part of Eyebeam’s Rapid Response for a Better Digital Future fellowship.
+> How can artists create new live performances during the time of COVID-19? Volumetric Performance Toolbox empowers creators to perform from their own living spaces for a virtual audience. Movement artist Valencia James performed publicly with the Toolbox for the first time on September 24, 2020 in the Mozilla Hubs virtual social space. The project is a collaboration with Valencia James as part of Eyebeam’s Rapid Response for a Better Digital Future fellowship.
 
 More information on the Volumetric Performance Toolbox here:
 
