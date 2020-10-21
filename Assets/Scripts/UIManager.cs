@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
                 PreviewStream(true);
             }
         }
-        
+
 
         config.rtmp_path = GUILayout.TextField(config.rtmp_path.Length < 1 ? "rtmp url" : config.rtmp_path, 255);
         config.ffmpeg_path = Config.CurrentAppConfig.ffmpeg_path;
@@ -109,19 +109,23 @@ public class UIManager : MonoBehaviour
         }
         int initialWidth = config.output.width;
         int initialHeight = config.output.height;
-        if((config.output.height == 0 && config.output.width == 0) || config.mode != mode){
+        if ((config.output.height == 0 && config.output.width == 0) || config.mode != mode)
+        {
             config.output.width = defaultOutputSettings.width;
             config.output.height = defaultOutputSettings.height;
         }
         GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
-        
+
         currentControlName = "Output Width";
         GUI.SetNextControlName(currentControlName);
         GUILayout.Label(currentControlName, GUILayout.Width(50));
         isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-        if(isFocused){
+        if (isFocused)
+        {
             inputBuffer = GUILayout.TextField(ParseIntField(config.output.width, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-        } else {
+        }
+        else
+        {
             int.TryParse(GUILayout.TextField(ParseIntField(config.output.width, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.output.width);
         }
 
@@ -129,39 +133,49 @@ public class UIManager : MonoBehaviour
         GUI.SetNextControlName(currentControlName);
         GUILayout.Label(currentControlName, GUILayout.Width(50));
         isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-        if(isFocused){
+        if (isFocused)
+        {
             inputBuffer = GUILayout.TextField(ParseIntField(config.output.height, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-        } else {
+        }
+        else
+        {
             int.TryParse(GUILayout.TextField(ParseIntField(config.output.height, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.output.height);
         }
 
         GUILayout.EndHorizontal();
-        if(initialWidth != config.output.width || initialHeight != config.output.height){
+        if (initialWidth != config.output.width || initialHeight != config.output.height)
+        {
             outputTextureBroadcaster.Resize(config.output.width, config.output.height);
         }
 
         int vfxSelection = GUILayout.SelectionGrid(config.vfxSelection, vfxNames, 3);
-        if(config.vfxSelection != vfxSelection){
+        if (config.vfxSelection != vfxSelection)
+        {
             PointCloudVFXGraph.visualEffectAsset = VFXGraphs[vfxSelection];
             config.vfxSelection = vfxSelection;
         }
-        if(GUILayout.Button("Main Camera") && currentCamera != -1){
+        if (GUILayout.Button("Main Camera") && currentCamera != -1)
+        {
             currentCamera = -1;
             CameraPivot.enabled = true;
             PreviewCamera.gameObject.SetActive(true);
         }
         int cameraSelection = GUILayout.SelectionGrid(currentCamera, cameraNames, 2);
-        if(currentCamera != cameraSelection){
-            if(currentCamera == -1){
+        if (currentCamera != cameraSelection)
+        {
+            if (currentCamera == -1)
+            {
                 CameraPivot.enabled = false;
                 PreviewCamera.gameObject.SetActive(false);
-            } else {
+            }
+            else
+            {
                 orthographicCameras[currentCamera].gameObject.SetActive(false);
             }
             currentCamera = cameraSelection;
             orthographicCameras[currentCamera].gameObject.SetActive(true);
             orthographicCameras[currentCamera].Reset();
-        }       
+        }
         if (GUILayout.Button("Reset Camera", GUILayout.Width(120)))
         {
             currentCamera = -1;
@@ -170,7 +184,8 @@ public class UIManager : MonoBehaviour
             PreviewCamera.gameObject.SetActive(true);
         }
         editingMask = GUILayout.Toggle(editingMask, "Edit box mask bounds");
-        if(editingMask){
+        if (editingMask)
+        {
             //postion
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Left:", GUILayout.Width(50));
@@ -180,9 +195,12 @@ public class UIManager : MonoBehaviour
             currentControlName = "Box xPos";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_x);
             }
 
@@ -196,9 +214,12 @@ public class UIManager : MonoBehaviour
             currentControlName = "Box yPos";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_y);
             }
 
@@ -212,15 +233,18 @@ public class UIManager : MonoBehaviour
             currentControlName = "Box zPos";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.pos_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.pos_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.pos_z);
             }
-            
+
             GUILayout.EndHorizontal();
 
-            
+
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
@@ -229,9 +253,12 @@ public class UIManager : MonoBehaviour
             currentControlName = "Box xRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_x);
             }
 
@@ -244,9 +271,12 @@ public class UIManager : MonoBehaviour
             currentControlName = "Box yRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_y);
             }
             GUILayout.EndHorizontal();
@@ -254,13 +284,16 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
             config.mask.rot_z = GUILayout.HorizontalScrollbar(config.mask.rot_z, 1.0f, -90f, 90f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "Box zRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.rot_z);
             }
             GUILayout.EndHorizontal();
@@ -269,13 +302,16 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Width:", GUILayout.Width(50));
             config.mask.scale_x = GUILayout.HorizontalScrollbar(config.mask.scale_x, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "Box xScale";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_x);
             }
             GUILayout.EndHorizontal();
@@ -283,13 +319,16 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Height", GUILayout.Width(50));
             config.mask.scale_y = GUILayout.HorizontalScrollbar(config.mask.scale_y, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "Box yScale";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_y);
             }
             GUILayout.EndHorizontal();
@@ -297,13 +336,16 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Depth", GUILayout.Width(50));
             config.mask.scale_z = GUILayout.HorizontalScrollbar(config.mask.scale_z, 1.0f, 1.0f, 4.0f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "Box zScale";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.mask.scale_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.mask.scale_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.mask.scale_z);
             }
             GUILayout.EndHorizontal();
@@ -312,34 +354,38 @@ public class UIManager : MonoBehaviour
             {
                 config.mask.pos_x = config.mask.pos_y = 0.0f;
                 config.mask.pos_z = 0;
-                config.mask.rot_x = config.mask.rot_y= config.mask.rot_z= 0.0f;
+                config.mask.rot_x = config.mask.rot_y = config.mask.rot_z = 0.0f;
                 config.mask.scale_x = config.mask.scale_y = config.mask.scale_z = 4.0f;
             }
         }
 
         Bounds.transform.localScale = new Vector3(config.mask.scale_x, config.mask.scale_y, config.mask.scale_z);
 
-        Bounds.transform.position = new Vector3(config.mask.pos_x, config.mask.pos_y, config.mask.scale_z/2.0f + config.mask.pos_z);
+        Bounds.transform.position = new Vector3(config.mask.pos_x, config.mask.pos_y, config.mask.scale_z / 2.0f + config.mask.pos_z);
 
         Bounds.transform.rotation = Quaternion.Euler(config.mask.rot_x, config.mask.rot_y, config.mask.rot_z);
-        
+
         editingPointcloud = GUILayout.Toggle(editingPointcloud, "Edit pointcloud transform");
 
         Vector3 startRotation = Vector3.zero;
         bool pointcloudRotationChanged = false;
-        if(editingPointcloud){
+        if (editingPointcloud)
+        {
             startRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
             //rotation
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Pitch:", GUILayout.Width(50));
             config.pointcloud.rot_x = GUILayout.HorizontalScrollbar(config.pointcloud.rot_x, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "PC xRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_x, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_x);
             }
             GUILayout.EndHorizontal();
@@ -347,13 +393,16 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Roll", GUILayout.Width(50));
             config.pointcloud.rot_y = GUILayout.HorizontalScrollbar(config.pointcloud.rot_y, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "PC yRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_y, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_y);
             }
             GUILayout.EndHorizontal();
@@ -361,35 +410,38 @@ public class UIManager : MonoBehaviour
             GUILayout.BeginHorizontal("Box", GUILayout.Width(300));
             GUILayout.Label("Yaw", GUILayout.Width(50));
             config.pointcloud.rot_z = GUILayout.HorizontalScrollbar(config.pointcloud.rot_z, 1.0f, -180f, 180f, GUILayout.MinWidth(200));
-            
+
             currentControlName = "PC zRot";
             GUI.SetNextControlName(currentControlName);
             isFocused = GUI.GetNameOfFocusedControl() == currentControlName;
-            if(isFocused){
+            if (isFocused)
+            {
                 inputBuffer = GUILayout.TextField(ParseFloatField(config.pointcloud.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName));
-            } else {
+            }
+            else
+            {
                 float.TryParse(GUILayout.TextField(ParseFloatField(config.pointcloud.rot_z, isFocused, focusedChanged && lastFocusedControl == currentControlName)), out config.pointcloud.rot_z);
             }
             GUILayout.EndHorizontal();
             Vector3 endRotation = new Vector3(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
             pointcloudRotationChanged = startRotation != endRotation;
-        } 
+        }
 
         VFXPivot.constraintActive = pointcloudRotationChanged;
         VFXPivot.transform.rotation = Quaternion.Euler(config.pointcloud.rot_x, config.pointcloud.rot_y, config.pointcloud.rot_z);
 
-        
+
         GUILayout.BeginArea(new Rect(Screen.width - 320, 20, 300, 500));
-        GUILayout.Box(Output,GUIStyle.none, GUILayout.MaxWidth(300), GUILayout.MaxHeight(500));
-        GUILayout.EndArea ();
+        GUILayout.Box(Output, GUIStyle.none, GUILayout.MaxWidth(300), GUILayout.MaxHeight(500));
+        GUILayout.EndArea();
 
 
         GUILayout.BeginArea(new Rect(Screen.width - 310, Screen.height - 100, 300, 100));
         GUILayout.Label(
-            currentCamera == -1 ? 
-            "Use W and S to move the camera forward and back, A and D to move left and right, Q and E to move up and down. Hold ctrl, left click, and move mouse to rotate view. Scroll to move faster." 
+            currentCamera == -1 ?
+            "Use W and S to move the camera forward and back, A and D to move left and right, Q and E to move up and down. Hold ctrl, left click, and move mouse to rotate view. Scroll to move faster."
             : "Pan camera with WASD keys or by holding middle mouse and moving mouse. Scroll to zoom in and out.", description, GUILayout.MaxWidth(290));
-        GUILayout.EndArea ();
+        GUILayout.EndArea();
         PointCloudVFXGraph.SetInt("ShowUnmasked", editingPointcloud || editingMask ? 1 : 0);
 
         config.mode = mode;
@@ -397,64 +449,59 @@ public class UIManager : MonoBehaviour
         //save changes
         Config.CurrentAppConfig = config;
         lastFocusedControl = GUI.GetNameOfFocusedControl();
-        if(Event.current.keyCode == KeyCode.Return){
+        if (Event.current.keyCode == KeyCode.Return)
+        {
             GUI.FocusControl(null);
         }
     }
 
-    string ParseIntField(int value, bool focused, bool focusChanged){
-        if(focused){
+    string ParseIntField(int value, bool focused, bool focusChanged)
+    {
+        if (focused)
+        {
             return inputBuffer;
-        } else if(focusChanged){
-            if(int.TryParse(inputBuffer, out value)){
-            } 
+        }
+        else if (focusChanged)
+        {
+            if (int.TryParse(inputBuffer, out value))
+            {
+            }
             inputBuffer = "";
-        } 
+        }
         return value.ToString();
     }
 
-    string ParseFloatField(float value, bool focused, bool focusChanged){
-        if(focused){
+    string ParseFloatField(float value, bool focused, bool focusChanged)
+    {
+        if (focused)
+        {
             return inputBuffer;
-        } else if(focusChanged){
-            if(float.TryParse(inputBuffer, out value)){
-            } 
+        }
+        else if (focusChanged)
+        {
+            if (float.TryParse(inputBuffer, out value))
+            {
+            }
             inputBuffer = "";
-        } 
+        }
         return value.ToString();
     }
 
     void ToggleStream(bool stream)
     {
 
-        if(stream)
+        if (stream)
         {
-            if( ffmpeg == null)
+            if (ffmpeg == null)
             {
                 ffmpeg = new Process();
-                string ffmpegLocation = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
-                if (!File.Exists(ffmpegLocation))
-                {
-                    var enviromentPath = System.Environment.GetEnvironmentVariable("PATH");
-
-                    UnityEngine.Debug.Log(enviromentPath);
-                    var paths = enviromentPath.Split(';');
-                    var exePath = paths.Select(x => Path.Combine(x, "ffmpeg.exe"))
-                                       .Where(x => File.Exists(x))
-                                       .FirstOrDefault();
-
-                
-
-                    ffmpegLocation = exePath;
-                }
-
-                UnityEngine.Debug.Log("Launch " + ffmpegLocation);
-                ffmpeg.StartInfo.FileName = ffmpegLocation;
-                ffmpeg.StartInfo.Arguments = $"-f dshow -video_size 640x960 -i video=\"SpoutCam\" -c:v libx264 -preset veryfast -b:v 1984k -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv {Config.CurrentAppConfig.rtmp_path}";
+                ffmpeg.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffmpeg.exe"); ;
+                ffmpeg.StartInfo.Arguments = $"{Config.CurrentAppConfig.ffmpeg_args} {Config.CurrentAppConfig.rtmp_path}";
                 ffmpeg.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 ffmpeg.StartInfo.UseShellExecute = true;
 
+                UnityEngine.Debug.Log($"Launch {ffmpeg.StartInfo.FileName} {ffmpeg.StartInfo.Arguments}");
 
                 ffmpeg.Start();
                 streaming = true;
@@ -465,36 +512,42 @@ public class UIManager : MonoBehaviour
         {
             if (ffmpeg != null)
             {
-                ffmpeg.Kill();
+                KillProcess(ffmpeg);
+                ffmpeg.Dispose();
                 ffmpeg = null;
             }
             streaming = false;
         }
     }
 
-    void PreviewStream( bool show)
+    void PreviewStream(bool show)
     {
 
-        if(show)
+        if (show)
         {
             if (ffplay == null)
             {
                 ffplay = new Process();
                 ffplay.StartInfo.FileName = Path.Combine(Config.CurrentAppConfig.ffmpeg_path, "ffplay.exe");
-                ffplay.StartInfo.Arguments = "-f dshow -video_size 640x960 -vf \"format = yuv420p\" -i video=\"Unity Video Capture\"";
+                ffplay.StartInfo.Arguments = Config.CurrentAppConfig.ffplay_args;
                 ffplay.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 ffplay.StartInfo.UseShellExecute = true;
 
+                UnityEngine.Debug.Log($"Launch {ffplay.StartInfo.FileName} {ffplay.StartInfo.Arguments}");
+
                 ffplay.Start();
+
+
                 previewing = true;
             }
         }
         else
         {
-            if( ffplay != null)
+            if (ffplay != null)
             {
-                ffplay.Kill();
+                KillProcess(ffplay);
+                ffplay.Dispose();
                 ffplay = null;
             }
             previewing = false;
@@ -502,16 +555,26 @@ public class UIManager : MonoBehaviour
 
     }
 
+    private void KillProcess( Process p)
+    {
+        ProcessExtensions.KillTree(p);
+    }
 
     void OnApplicationQuit()
     {
-        if (ffplay != null && !ffplay.HasExited )
+        UnityEngine.Debug.Log($"OnApplicationQuit");
+
+        if (ffplay != null && !ffplay.HasExited)
         {
-            ffplay.Kill();
+            KillProcess(ffplay);
+            ffplay.Dispose();
         }
+        
+       
         if (ffmpeg != null && !ffmpeg.HasExited)
         {
-            ffmpeg.Kill();
+            KillProcess(ffmpeg);
+            ffmpeg.Dispose();
         }
     }
 }
