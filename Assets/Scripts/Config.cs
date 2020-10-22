@@ -67,7 +67,7 @@ public class Config
             {
                 rtmp_path = String.Empty,
                 ffmpeg_path = AppConfig.ffmpegPath(),
-                ffmpeg_args = "-f dshow -video_size 640x960 -rtbufsize 10M -i video=\"SpoutCam\" -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv",
+                ffmpeg_args = "-f dshow -i video=\"SpoutCam\":audio=\"Microphone Array (4- Azure Kinect Microphone Array)\" -video_size 640x960 -rtbufsize 10M -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv",
                 ffplay_args = "-f dshow -video_size 640x960 -vf \"format = yuv420p\" -i video=\"SpoutCam\""
             };
         }
@@ -101,17 +101,19 @@ public class Config
     private static AppConfig _CurrentAppConfig;
     public static AppConfig CurrentAppConfig
     {
+        
         get
         {
             if (!_CurrentAppConfig.loaded)
             {
-
                 if (System.IO.File.Exists(app_config))
                 {
                     try
                     {
                         string json = System.IO.File.ReadAllText(app_config);
                         _CurrentAppConfig = JsonUtility.FromJson<AppConfig>(json);
+
+                        Debug.Log(json);
 
                         string ffmpegLocation = Path.Combine(_CurrentAppConfig.ffmpeg_path, "ffmpeg.exe");
 
