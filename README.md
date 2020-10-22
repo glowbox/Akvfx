@@ -89,8 +89,8 @@ To build:
 
 There are two modes available:
 
-* **Orthographic (RGB+D)** mode by default creates a 640x960 combined orthographic depth (encoded in hue) and color map. This is designed to be easy to load into a three.js scene using our [corresponding fork](https://github.com/volumetricperformance/Depthkit.js) of Depthkit.js for hosting volumetric streams.
-* **Perspective (RGB)** mode by default creates a 1920x1080 color image. This affords fast input into creative tools like Open Broadcast Studio, MadMapper or TouchDesigner.
+* **Orthographic (RGB+D)** mode creates a rgb + depth texture for streaming to an rtmp endpoint. It creates a 640x960 combined orthographic depth (encoded in hue) and color map. This is designed to be easy to load into a three.js scene using our [corresponding fork](https://github.com/volumetricperformance/Depthkit.js) of Depthkit.js for hosting volumetric streams.
+* **Perspective (RGB)** mode outputs a 1920x1080 color image of what the virtual capture camera "sees". This affords fast input into video conferencing like Zoom, Teams as well as creative tools like Open Broadcast Studio (OBS), MadMapper or TouchDesigner.
 
 ### **Calibrate the Image**
 
@@ -127,13 +127,41 @@ Different modes have different effects available: Perspective (RGB) uses Point_M
 
 Read more about these effects in more detail here: ___vfx.md___
 
-### **Configure Streaming**
+## **Virtual Camera streaming**
+
+To use the output in apps like Zoom, Teams, Slack or tools like OBS, Xplit. Find the video settings for each app and select the "SpoutCam" as camera.
+
+
+## **RTMP Streaming**
+---
+
+To stream the output to an RTMP endpoint like Twitch or MUX. Review the documentation for each service to construct a RTMP endpoint with the correct stream key.
+
+For example this is the format to stream to [Node Media Server](https://github.com/illuspas/Node-Media-Server): rtmp://localhost:1935/live/test
+
+For example this is the format to stream to [MUX](https://mux.com/):
+rtmp://global-live.mux.com:5222/app/[private stream key]
 
 To configure this tool to stream to three.js using our fork of Depthkit.js:
 
 * Ensure that you’re using the Orthographic (RGB+D) mode.
 * Set the RTMP endpoint beneath “Preview Stream.”
-* Ensure that your output resolution matches your intended receiver by adjusting Output Width and Output Height.
 * Press start stream!
 
 For more information on the three.js implementation see our fork of Depthkit.js here: [https://github.com/glowbox/Depthkit.js](https://github.com/glowbox/Depthkit.js)
+
+### **Audio**
+By default the RTMP stream uses the Azure Kinect microphone for audio. You can change which audio device to use by editing config.json.
+
+If you want to use the system audio install VoiceMeeter https://vb-audio.com/Voicemeeter/. VoiceMeeter installs a "virtual input" that will list as `"VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)"`
+
+
+### **ffmpeg default**
+
+
+The default ffmpeg command used for streaming is:
+```
+ffmpeg.exe -f dshow -i video="SpoutCam":audio="Microphone Array (4- Azure Kinect Microphone Array)" -video_size 640x960 -rtbufsize 10M -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf "format = yuv420p" -g 60 -f flv [rtmp://url here]
+```
+
+You can change this in the config.json file located in the application folder. 
