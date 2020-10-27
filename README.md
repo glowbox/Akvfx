@@ -20,10 +20,12 @@ This GitHub repository contains middleware for generating perspective-correct co
 
 Glowbox made this tool from a fork of Keijiro’s [AKVFX ](https://github.com/keijiro/Akvfx)(Azure Kinect plugin for Unity VFX Graph) which exposes color and world position maps from the Azure Kinect to Unity’s VFX graph. We use Unity's VFX graph in their HD Render Pipeline to post process data for streaming using Spout and FFmpeg. These allow us to encode Spout Textures and RTMP streams for things like Zoom calls, volumetric performances, and integration in other tools like OBS.
 
+This fork includes custom vfx graphs that generate "fuller" pointclouds. 
+
 ## **Overview**
 ---
 
-This Unity application connects an Azure Kinect RGB and Depth stream and visualizes this as a pointcloud. It outputs the visual of the point cloud to a virtual webcam (SpoutCam). It can also instruct ffmpeg to stream the virtaul webcam output to an RTMP end point like Twitch.
+This Unity application connects an Azure Kinect RGB and Depth stream and visualizes this as a pointcloud. It outputs the visual of the point cloud to a virtual webcam (SpoutCam). It can also instructs ffmpeg to stream the virtaul webcam output to an RTMP end point like Twitch.
 
 #### **System Requirements**
 
@@ -116,6 +118,7 @@ Once you’ve chosen a mode for outputting your data, calibrate your image by cl
 * Click Main Camera or Reset Camera to return to Main Camera.
 
 ### **Select a Visual Effect for Rendering the Scene**
+In an effort to improve the pointcloud visualization, making it more "readable" / make humans look more "recognizable" we created different visualization effects. 
 
 There are three different VFX Graphs usable in the project: Point_Masked, Pixel_Masked and Spike_Masked:
 
@@ -125,7 +128,18 @@ There are three different VFX Graphs usable in the project: Point_Masked, Pixel_
 
 Different modes have different effects available: Perspective (RGB) uses Point_Masked, and Spike_Masked, Orthographic (RGB+D) uses Point_Masked and Pixel_Masked, due to respective differences in the camera formats.
 
-Read more about these effects in more detail here: ___vfx.md___
+## **VXF Graphs**
+The default pointcloud visualization has issues with holes and point density. We created 3 different approaches in try to resolve these issues.
+
+There are three different VFX Graphs usable in the project: Point_Masked, Pixel_Masked and Spike_Masked.
+
+**Point_Masked** is the simplest of the three, rendering a colored dot for each point in the map at a constant scale. If performance is a constraint Point_Masked might be a good option.
+
+**Pixel_Masked** is an attempt to correct the decreasing density of points from the sensor as they fall deeper in space. By scaling points up as they fall further from the Kinect, we fill some of the missing data. We trade holes between constant scaled points for lower resolution generalizations. Because the effect depends on the orthographic camera, it’s only available in Orthographic (RGB+D) mode.
+
+**Spike_Masked** is inspired by research in hole filling for sparse point cloud datasets. By extruding each spike toward the camera, the points naturally sort themselves into a voronoi pattern. This technique is inspired by a depth sorting technique with cones described in [High-Quality Point-Based Rendering Using Fast Single-Pass Interpolation (2015)](https://ieeexplore.ieee.org/document/7413904) by Markus Schutz and Michael Wimmer. This pattern preserves smaller details while filling holes in more sparse areas. Without normal filtering the graph produces a halo effect around figures. Because of this we turn spikes in screen space to align with the normals of the Kinect world map. This graph makes single Kinect captures look convincing even at camera angles where there are less points. The tradeoff between Spike_Masked and Point_Masked is in performance. Because Spike_Masked depends on drawing many intersecting meshes the cost of overdraw on the GPU can be demanding. There is also a Cone_Masked graph inside the project which uses cones instead of spikes, more similar to published research, but its performance cost is much higher so it’s not included as an option by default.
+
+The Assets/Vfx/ConeFill/ConeFill” folder includes subgraphs that assist with the cone / spike based method.
 
 ## **Virtual Camera streaming**
 
@@ -155,13 +169,17 @@ By default the RTMP stream uses the Azure Kinect microphone for audio. You can c
 
 If you want to use the system audio install VoiceMeeter https://vb-audio.com/Voicemeeter/. VoiceMeeter installs a "virtual input" that will list as `"VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)"`
 
+Update `ffmpeg_args` in config.json to read:
+```
+-f dshow -i video=\"SpoutCam\":audio=\"VoiceMeeter Output (VB-Audio VoiceMeeter VAIO)\" -video_size 640x960 -rtbufsize 10M -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf \"format = yuv420p\" -g 60 -f flv
+```
 
-### **ffmpeg default**
+### **ffmpeg defaults**
 
 
 The default ffmpeg command used for streaming is:
 ```
-ffmpeg.exe -f dshow -i video="SpoutCam":audio="Microphone Array (4- Azure Kinect Microphone Array)" -video_size 640x960 -rtbufsize 10M -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf "format = yuv420p" -g 60 -f flv [rtmp://url here]
+ffmpeg.exe -f dshow - i video="SpoutCam":audio="Microphone Array (4- Azure Kinect Microphone Array)" -video_size 640x960 -rtbufsize 10M -c:v libx264 -preset veryfast -b:v 1984k -c:a aac -b:a 160k -ar 44100 -maxrate 1984k -bufsize 3968k -vf "format = yuv420p" -g 60 -f flv [rtmp://url here]
 ```
 
 You can change this in the config.json file located in the application folder. 
